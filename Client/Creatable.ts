@@ -5,5 +5,7 @@ export interface Creatable {
 	code: string
 }
 export namespace Creatable {
-	export const type = isly.object()
+	export const type = isly.object<Creatable>({ name: isly.string(), code: isly.string() })
+	export const is = type.is
+	export const flaw = type.flaw
 }
