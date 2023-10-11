@@ -1,1 +1,1 @@
-export * from "./weekmeter"
+export * as weekmeter from "./weekmeter"

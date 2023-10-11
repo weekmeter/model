@@ -1,8 +1,8 @@
 {
-	"name": "@utily/library-template",
+	"name": "@weekmeter/model",
 	"version": "0.0.15",
-	"description": "Template library for Typescript.",
-	"author": "Utily Contributors",
+	"description": "Model for the Weekmeter app",
+	"author": "Weekmeter Contributors",
 	"license": "MIT",
 	"repository": "https://github.com/utily/library-template",
 	"bugs": {
@@ -29,7 +29,7 @@
 			"^.+\\.(j|t)sx?$": "ts-jest"
 		},
 		"transformIgnorePatterns": [
-			"<rootDir>/node_modules/(?!(cryptly|authly|isoly|gracely|cloudly-http|cloudly-router|cloudly-formdata)/.*)"
+			"<rootDir>/node_modules/(?!(cryptly|authly|userwidgets|isly|isoly|gracely|cloudly-http|cloudly-router|cloudly-formdata)/.*)"
 		],
 		"testEnvironment": "node",
 		"testRegex": "((\\.|/)(test|spec))(\\.|\\/.+)(jsx?|tsx?)$",
