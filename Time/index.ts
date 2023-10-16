@@ -19,4 +19,7 @@ export namespace Time {
 		locked: isly.boolean(true).optional(),
 		modified: Modified.type,
 	})
+
+	export const is = type.is
+	export const flaw = type.flaw
 }
