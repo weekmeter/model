@@ -1,3 +1,4 @@
+import { isoly } from "isoly"
 import { weekmeter } from "./index"
 
 export function getModified(): weekmeter.Modified {
@@ -8,6 +9,12 @@ export function getModified(): weekmeter.Modified {
 }
 export function getTime(): weekmeter.Time {
 	return {
+		client: "CLT",
+		project: "ProjectA",
+		email: "Email@test.com",
+		activity: "ACTT",
+		organization: "---o1---",
+		date: isoly.Date.create(new Date()),
 		balance: { hours: 0.75, minutes: 14 },
 		modified: getModified(),
 		value: { hours: 5 },
