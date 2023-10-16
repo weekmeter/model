@@ -11,7 +11,6 @@ describe("activity", () => {
 
 	it("get", () => {
 		const activity = { ...fixtures.getActivity(), from: "TEsting" }
-
 		expect(weekmeter.Activity.type.get(activity)).toEqual(fixtures.getActivity())
 		expect(weekmeter.Activity.type.get({ name: "asd" })).toEqual(undefined)
 	})
@@ -27,7 +26,6 @@ describe("creatable", () => {
 
 	it("get", () => {
 		const creatable = { ...fixtures.getActivity.creatable(), from: "TEsting" }
-
 		expect(weekmeter.Activity.Creatable.type.get(creatable)).toEqual(fixtures.getActivity.creatable())
 		expect(weekmeter.Activity.Creatable.type.get({ name: "asd" })).toEqual(undefined)
 	})

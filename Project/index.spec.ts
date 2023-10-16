@@ -11,7 +11,6 @@ describe("project", () => {
 
 	it("get", () => {
 		const project = { ...fixtures.getProject(), from: "Testing" }
-
 		expect(weekmeter.Project.type.get(project)).toEqual(fixtures.getProject())
 		expect(weekmeter.Project.type.get({ name: "asd" })).toEqual(undefined)
 	})
@@ -27,7 +26,6 @@ describe("creatable", () => {
 
 	it("get", () => {
 		const creatable = { ...fixtures.getProject.creatable(), from: "Testing" }
-
 		expect(weekmeter.Project.Creatable.type.get(creatable)).toEqual(fixtures.getProject.creatable())
 		expect(weekmeter.Project.Creatable.type.get({ name: "asd" })).toEqual(undefined)
 	})

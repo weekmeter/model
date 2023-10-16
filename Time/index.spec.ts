@@ -11,7 +11,6 @@ describe("Time", () => {
 
 	it("get", () => {
 		const time = { ...fixtures.getTime(), from: "Testing" }
-
 		expect(weekmeter.Time.type.get(time)).toEqual(fixtures.getTime())
 		expect(weekmeter.Time.type.get({ balance: "asd" })).toEqual(undefined)
 	})
@@ -27,7 +26,6 @@ describe("creatable", () => {
 
 	it("get", () => {
 		const creatable = { ...fixtures.getTime.creatable(), from: "Testing" }
-
 		expect(weekmeter.Time.Creatable.type.get(creatable)).toEqual(fixtures.getTime.creatable())
 		expect(weekmeter.Time.Creatable.type.get({ balance: "asd" })).toEqual(undefined)
 	})
@@ -43,7 +41,6 @@ describe("changeable", () => {
 
 	it("get", () => {
 		const changeable = { ...fixtures.getTime.changeable(), from: "Testing" }
-
 		expect(weekmeter.Time.Changeable.type.get(changeable)).toEqual(fixtures.getTime.changeable())
 		expect(weekmeter.Time.Changeable.type.get({ balance: "asd" })).toEqual(undefined)
 	})

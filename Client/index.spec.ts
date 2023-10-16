@@ -11,7 +11,6 @@ describe("client", () => {
 
 	it("get", () => {
 		const client = { ...fixtures.getClient(), from: "Testing" }
-
 		expect(weekmeter.Client.type.get(client)).toEqual(fixtures.getClient())
 		expect(weekmeter.Client.type.get({ name: "asd" })).toEqual(undefined)
 	})
@@ -26,7 +25,6 @@ describe("creatable", () => {
 
 	it("get", () => {
 		const creatable = { ...fixtures.getClient.creatable(), from: "Testing" }
-
 		expect(weekmeter.Client.Creatable.type.get(creatable)).toEqual(fixtures.getClient.creatable())
 		expect(weekmeter.Client.Creatable.type.get({ name: "asd" })).toEqual(undefined)
 	})

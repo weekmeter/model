@@ -12,7 +12,6 @@ export interface Creatable {
 	activity: Activity["code"]
 	organization: userwidgets.Organization.Identifier
 	date: isoly.Date
-
 	value: isoly.TimeSpan
 }
 export namespace Creatable {

@@ -11,7 +11,6 @@ describe("modified", () => {
 
 	it("get", () => {
 		const modified = { ...fixtures.getModified(), from: "Testing" }
-
 		expect(weekmeter.Modified.type.get(modified)).toEqual(fixtures.getModified())
 		expect(weekmeter.Modified.type.get({ name: "asd" })).toEqual(undefined)
 	})
