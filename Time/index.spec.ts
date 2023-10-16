@@ -6,7 +6,7 @@ describe("Time", () => {
 		const time = fixtures.getTime()
 		expect(weekmeter.Time.is(time)).toEqual(true)
 		expect(weekmeter.Time.is((({ balance, ...time }) => time)(time))).toEqual(false)
-		expect(weekmeter.Time.is({ ...time, name: 123 })).toEqual(false)
+		expect(weekmeter.Time.is({ ...time, balance: "testing" })).toEqual(false)
 	})
 
 	it("get", () => {
