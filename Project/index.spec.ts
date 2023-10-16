@@ -1,7 +1,7 @@
 import * as fixtures from "../fixtures"
 import { weekmeter } from "../index"
 
-describe("project", () => {
+describe("Project", () => {
 	it("is", () => {
 		const project = fixtures.getProject()
 		expect(weekmeter.Project.is(project)).toEqual(true)
@@ -16,7 +16,7 @@ describe("project", () => {
 	})
 })
 
-describe("creatable", () => {
+describe("Creatable", () => {
 	it("is", () => {
 		const creatable = fixtures.getProject.creatable()
 		expect(weekmeter.Project.Creatable.is(creatable)).toEqual(true)

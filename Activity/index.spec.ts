@@ -1,7 +1,7 @@
 import * as fixtures from "../fixtures"
 import { weekmeter } from "../index"
 
-describe("activity", () => {
+describe("Activity", () => {
 	it("is", () => {
 		const activity = fixtures.getActivity()
 		expect(weekmeter.Activity.is(activity)).toEqual(true)
@@ -16,7 +16,7 @@ describe("activity", () => {
 	})
 })
 
-describe("creatable", () => {
+describe("Creatable", () => {
 	it("is", () => {
 		const creatable = fixtures.getActivity.creatable()
 		expect(weekmeter.Activity.Creatable.is(creatable)).toEqual(true)

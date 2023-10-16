@@ -55,10 +55,11 @@ function createClient(): weekmeter.Client {
 		name: "ClientTest",
 		code: "CLT",
 		modified: getModified(),
+		organization: "---o1---",
 	}
 }
 function createClientCreatable(): weekmeter.Client.Creatable {
-	return { name: "ClientTest", code: "CT" }
+	return { name: "ClientTest", code: "CT", organization: "---o1---" }
 }
 export const getProject = Object.assign(createProject, { creatable: createProjectCreatable })
 function createProject(): weekmeter.Project {
@@ -66,8 +67,10 @@ function createProject(): weekmeter.Project {
 		name: "ProjectTest",
 		code: "PRT",
 		modified: getModified(),
+		organization: "---o1---",
+		client: "CLT",
 	}
 }
 function createProjectCreatable(): weekmeter.Project.Creatable {
-	return { name: "ProjectTest", code: "PT" }
+	return { name: "ProjectTest", code: "PT", organization: "---o1---", client: "CLT" }
 }

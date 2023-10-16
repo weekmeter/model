@@ -1,7 +1,7 @@
 import * as fixtures from "../fixtures"
 import { weekmeter } from "../index"
 
-describe("modified", () => {
+describe("Modified", () => {
 	it("is", () => {
 		const modified = fixtures.getModified()
 		expect(weekmeter.Modified.is(modified)).toEqual(true)

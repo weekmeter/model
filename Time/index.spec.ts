@@ -16,7 +16,7 @@ describe("Time", () => {
 	})
 })
 
-describe("creatable", () => {
+describe("Creatable", () => {
 	it("is", () => {
 		const creatable = fixtures.getTime.creatable()
 		expect(weekmeter.Time.Creatable.is(creatable)).toEqual(true)
@@ -31,7 +31,7 @@ describe("creatable", () => {
 	})
 })
 
-describe("changeable", () => {
+describe("Changeable", () => {
 	it("is", () => {
 		const changeable = fixtures.getTime.changeable()
 		expect(weekmeter.Time.Changeable.is(changeable)).toEqual(true)
