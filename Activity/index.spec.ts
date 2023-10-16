@@ -16,3 +16,19 @@ describe("activity", () => {
 		expect(weekmeter.Activity.type.get({ name: "asd" })).toEqual(undefined)
 	})
 })
+
+describe("creatable", () => {
+	it("is", () => {
+		const creatable = fixtures.getActivity.creatable()
+		expect(weekmeter.Activity.Creatable.is(creatable)).toEqual(true)
+		expect(weekmeter.Activity.Creatable.is((({ name, ...creatable }) => creatable)(creatable))).toEqual(false)
+		expect(weekmeter.Activity.Creatable.is({ ...creatable, name: 123 })).toEqual(false)
+	})
+
+	it("get", () => {
+		const creatable = { ...fixtures.getActivity.creatable(), from: "TEsting" }
+
+		expect(weekmeter.Activity.Creatable.type.get(creatable)).toEqual(fixtures.getActivity.creatable())
+		expect(weekmeter.Activity.Creatable.type.get({ name: "asd" })).toEqual(undefined)
+	})
+})
