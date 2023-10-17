@@ -12,10 +12,10 @@ function createModified(): weekmeter.Modified {
 export const getTime = Object.assign(createTime, { creatable: createTimeCreatable, changeable: createTimeChangeable })
 function createTime(): weekmeter.Time {
 	return {
-		client: "CLT",
-		project: "ProjectA",
+		client: "clt",
+		project: "project-a",
 		email: "Email@test.com",
-		activity: "ACTT",
+		activity: "actt",
 		organization: "---o1---",
 		date: isoly.Date.create(new Date()),
 		modified: getModified(),
@@ -25,9 +25,9 @@ function createTime(): weekmeter.Time {
 function createTimeCreatable(): weekmeter.Time.Creatable {
 	return {
 		email: "Test@test.com",
-		client: "ClientCode",
-		project: "ProjectCode",
-		activity: "ActivityCode",
+		client: "client-code",
+		project: "project-code",
+		activity: "activity-code",
 		organization: "---o1---",
 		date: isoly.Date.create(new Date()),
 		value: { hours: 4 },
@@ -40,37 +40,40 @@ function createTimeChangeable(): weekmeter.Time.Changeable {
 export const getActivity = Object.assign(createActivity, { creatable: createActivityCreatable })
 function createActivity(): weekmeter.Activity {
 	return {
+		organization: "---o1---",
+		client: "clt",
+		project: "project-a",
 		name: "ActicityTest",
-		code: "ACTT",
+		code: "actt",
 		modified: getModified(),
 	}
 }
 function createActivityCreatable(): weekmeter.Activity.Creatable {
-	return { name: "ActivityTest", code: "ACTT" }
+	return { name: "ActivityTest", code: "actt", organization: "---o1---", client: "clt", project: "project-a" }
 }
 
 export const getClient = Object.assign(createClient, { creatable: createClientCreatable })
 function createClient(): weekmeter.Client {
 	return {
 		name: "ClientTest",
-		code: "CLT",
+		code: "clt",
 		modified: getModified(),
 		organization: "---o1---",
 	}
 }
 function createClientCreatable(): weekmeter.Client.Creatable {
-	return { name: "ClientTest", code: "CT", organization: "---o1---" }
+	return { name: "ClientTest", code: "ct", organization: "---o1---" }
 }
 export const getProject = Object.assign(createProject, { creatable: createProjectCreatable })
 function createProject(): weekmeter.Project {
 	return {
 		name: "ProjectTest",
-		code: "PRT",
+		code: "prt",
 		modified: getModified(),
 		organization: "---o1---",
-		client: "CLT",
+		client: "clt",
 	}
 }
 function createProjectCreatable(): weekmeter.Project.Creatable {
-	return { name: "ProjectTest", code: "PT", organization: "---o1---", client: "CLT" }
+	return { name: "ProjectTest", code: "pt", organization: "---o1---", client: "clt" }
 }
