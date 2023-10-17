@@ -1,4 +1,3 @@
-import { isoly } from "isoly"
 import { Creatable } from "./Creatable"
 
 export type Changeable = Creatable
