@@ -1,9 +1,10 @@
 import { isoly } from "isoly"
 import { userwidgets } from "@userwidgets/model"
 import { isly } from "isly"
-import { Activity } from "../Activity"
-import { Client } from "../Client"
-import { Project } from "../Project"
+import type { Activity } from "../Activity"
+import type { Client } from "../Client"
+import { Code } from "../Code"
+import type { Project } from "../Project"
 
 export interface Creatable {
 	email: userwidgets.Email
@@ -17,9 +18,9 @@ export interface Creatable {
 export namespace Creatable {
 	export const type = isly.object<Creatable>({
 		email: userwidgets.Email.type,
-		client: isly.string(),
-		project: isly.string(),
-		activity: isly.string(),
+		client: Code.type,
+		project: Code.type,
+		activity: Code.type,
 		organization: userwidgets.Organization.Identifier.type,
 		date: isly.fromIs("Date", isoly.Date.is),
 		value: isly.fromIs("TimeSpan", isoly.TimeSpan.is),
