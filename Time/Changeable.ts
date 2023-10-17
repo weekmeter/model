@@ -1,11 +1,9 @@
 import { isoly } from "isoly"
-import { isly } from "isly"
+import { Creatable } from "./Creatable"
 
-export interface Changeable {
-	value: isoly.TimeSpan
-}
+export type Changeable = Creatable
 export namespace Changeable {
-	export const type = isly.object<Changeable>({ value: isly.fromIs("TimeSpan", isoly.TimeSpan.is) })
+	export const type = Creatable.type
 	export const is = type.is
 	export const flaw = type.flaw
 }
