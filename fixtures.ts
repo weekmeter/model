@@ -34,7 +34,7 @@ function createTimeCreatable(): weekmeter.Time.Creatable {
 	}
 }
 function createTimeChangeable(): weekmeter.Time.Changeable {
-	return { value: { hours: 3, minutes: 30 } }
+	return createTimeCreatable()
 }
 
 export const getActivity = Object.assign(createActivity, { creatable: createActivityCreatable })
