@@ -1,6 +1,10 @@
 import { isoly } from "isoly"
 import { weekmeter } from "./index"
 
+export function getCode(): weekmeter.Code {
+	return "_-0code0-_"
+}
+
 export const getModified = Object.assign(createModified)
 function createModified(): weekmeter.Modified {
 	return {
