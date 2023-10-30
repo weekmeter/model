@@ -14,6 +14,20 @@ describe("Time", () => {
 		expect(weekmeter.Time.type.get(time)).toEqual(fixtures.getTime())
 		expect(weekmeter.Time.type.get({ balance: "asd" })).toEqual(undefined)
 	})
+	it("scope", () => {
+		const times = fixtures.getTimes(210) // maximum "unique" times produced by fixture
+		const scoped = weekmeter.Time.scope(times)
+		expect(times[0]).toBe(scoped["------o1"]["------c1"]["------p1"]["------a1"])
+		expect(times[times.length - 1]).toBe(scoped["------o7"]["------c5"]["------p3"]["------a2"])
+	})
+	it("fromScope", () => {
+		const times = fixtures.getTimes(210)
+		const scoped = weekmeter.Time.scope(times)
+		const result = weekmeter.Time.fromScope(scoped)
+		expect(times.length).toEqual(result.length)
+		for (const time of result)
+			expect(times.includes(time))
+	})
 })
 
 describe("Creatable", () => {
