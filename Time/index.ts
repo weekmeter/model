@@ -1,3 +1,4 @@
+import { isoly } from "isoly"
 import { isly } from "isly"
 import { Code } from "../Code"
 import { Modified } from "../Modified"
@@ -19,9 +20,12 @@ export namespace Time {
 	})
 	export const is = type.is
 	export const flaw = type.flaw
-	export function scope(times: Time[]): Record<Code, Record<Code, Record<Code, Record<Code, Record<isoly.Date, Time>>>>> {
+	export function scope(
+		times: Time[]
+	): Record<Code, Record<Code, Record<Code, Record<Code, Record<isoly.Date, Time>>>>> {
 		return times.reduce(
-			(result, time) => Scope.insert(result, time, [time.organization, time.client, time.project, time.activity,time.date]),
+			(result, time) =>
+				Scope.insert(result, time, [time.organization, time.client, time.project, time.activity, time.date]),
 			{}
 		)
 	}
@@ -34,7 +38,13 @@ export namespace Time {
 							result.concat(
 								Object.values(project).reduce(
 									(result: Time[], activity) =>
-										result.concat(Object.values(activity).reduce((result: Time[], time) => result.concat(time), [])),
+										result.concat(
+											Object.values(activity).reduce(
+												(result: Time[], date) =>
+													result.concat(Object.values(date).reduce((result: Time[], time) => result.concat(time), [])),
+												[]
+											)
+										),
 									[]
 								)
 							),
