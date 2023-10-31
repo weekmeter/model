@@ -1,3 +1,4 @@
+import { isoly } from "isoly"
 import * as fixtures from "../fixtures"
 import { weekmeter } from "../index"
 
@@ -15,10 +16,11 @@ describe("Time", () => {
 		expect(weekmeter.Time.type.get({ balance: "asd" })).toEqual(undefined)
 	})
 	it("scope", () => {
+		const now = isoly.Date.now()
 		const times = fixtures.getTimes(210) // maximum "unique" times produced by fixture
 		const scoped = weekmeter.Time.scope(times)
-		expect(times[0]).toBe(scoped["------o1"]["------c1"]["------p1"]["------a1"])
-		expect(times[times.length - 1]).toBe(scoped["------o7"]["------c5"]["------p3"]["------a2"])
+		expect(times[0]).toBe(scoped["------o1"]["------c1"]["------p1"]["------a1"][now])
+		expect(times[times.length - 1]).toBe(scoped["------o7"]["------c5"]["------p3"]["------a2"][now])
 	})
 	it("fromScope", () => {
 		const times = fixtures.getTimes(210)
