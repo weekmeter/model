@@ -1,4 +1,5 @@
 import { isly } from "isly"
+import { Code } from "../Code"
 import { Modified } from "../Modified"
 import { Changeable as TimeChangeable } from "./Changeable"
 import { Creatable as TimeCreatable } from "./Creatable"
@@ -18,7 +19,7 @@ export namespace Time {
 	})
 	export const is = type.is
 	export const flaw = type.flaw
-	export function scope(times: Time[]): Record<string, Record<string, Record<string, Record<string, Time>>>> {
+	export function scope(times: Time[]): Record<Code, Record<Code, Record<Code, Record<Code, Time>>>> {
 		return times.reduce(
 			(result, time) => Scope.insert(result, time, [time.organization, time.client, time.project, time.activity]),
 			{}
