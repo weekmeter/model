@@ -19,9 +19,9 @@ export namespace Time {
 	})
 	export const is = type.is
 	export const flaw = type.flaw
-	export function scope(times: Time[]): Record<Code, Record<Code, Record<Code, Record<Code, Time>>>> {
+	export function scope(times: Time[]): Record<Code, Record<Code, Record<Code, Record<Code, Record<isoly.Date, Time>>>>> {
 		return times.reduce(
-			(result, time) => Scope.insert(result, time, [time.organization, time.client, time.project, time.activity]),
+			(result, time) => Scope.insert(result, time, [time.organization, time.client, time.project, time.activity,time.date]),
 			{}
 		)
 	}
