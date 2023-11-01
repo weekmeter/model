@@ -3,6 +3,10 @@ import * as fixtures from "../fixtures"
 import { weekmeter } from "../index"
 
 describe("Time", () => {
+	it("getData", () => {
+		const timeWeekScoped = weekmeter.Time.scope(fixtures.getTimesWeek(5))
+		console.log(timeWeekScoped)
+	})
 	it("is", () => {
 		const time = fixtures.getTime()
 		expect(weekmeter.Time.is(time)).toEqual(true)
