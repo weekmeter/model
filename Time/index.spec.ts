@@ -6,6 +6,9 @@ describe("Time", () => {
 	it("getData", () => {
 		const timeWeekScoped = weekmeter.Time.scope(fixtures.getTimesWeek(5))
 		console.log(timeWeekScoped)
+
+		const test = weekmeter.Time.iterate(timeWeekScoped)
+		console.log(test)
 	})
 	it("is", () => {
 		const time = fixtures.getTime()

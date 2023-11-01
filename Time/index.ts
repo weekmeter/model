@@ -54,6 +54,27 @@ export namespace Time {
 			[]
 		)
 	}
+	export function iterate(times: ReturnType<typeof scope>): {
+		organization: Code
+		client: Code
+		project: Code
+		activity: Code
+		times: Record<isoly.Date, Time>
+	}[] {
+		return Object.entries(times).flatMap(([organization, client]) =>
+			Object.entries(client).flatMap(([client, project]) =>
+				Object.entries(project).flatMap(([project, activity]) =>
+					Object.entries(activity).flatMap(([activity, dates]) => ({
+						organization,
+						client,
+						project,
+						activity,
+						times: dates,
+					}))
+				)
+			)
+		)
+	}
 }
 type Scope<T> = { [scope: string]: T | Scope<T> }
 namespace Scope {
