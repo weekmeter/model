@@ -31,11 +31,11 @@ describe("Time", () => {
 			expect(times.includes(time))
 	})
 
-	it("makeRow", () => {
+	it("row", () => {
 		const times = fixtures.getTimesWeek(5)
 		const scoped = weekmeter.Time.scope(times)
-		const rowFromTimes = weekmeter.Time.makeRow(times)
-		const rowFromScoped = weekmeter.Time.makeRow(scoped)
+		const rowFromTimes = weekmeter.Time.row(times)
+		const rowFromScoped = weekmeter.Time.row(scoped)
 		expect(rowFromTimes).toEqual(rowFromScoped)
 	})
 })

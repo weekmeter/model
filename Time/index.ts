@@ -54,7 +54,7 @@ export namespace Time {
 			[]
 		)
 	}
-	export function makeRow(times: ReturnType<typeof scope> | Time[]): {
+	export function row(times: ReturnType<typeof scope> | Time[]): {
 		organization: Code
 		client: Code
 		project: Code
