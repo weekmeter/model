@@ -41,6 +41,22 @@ export function getTimes(n: number): weekmeter.Time[] {
 		}
 	}
 }
+
+export function getTimesWeek(n: number): weekmeter.Time[] {
+	return Array.from({ length: n }).map((_, index) => getTime(index))
+	function getTime(n: number): weekmeter.Time {
+		return {
+			organization: "------o1",
+			client: "------c1",
+			project: "------p1",
+			activity: "------a1",
+			email: "jessie@rocket.com",
+			date: isoly.Date.next(isoly.Date.now(), n),
+			modified: getModified(),
+			value: { hours: 8 },
+		}
+	}
+}
 function createTimeCreatable(): weekmeter.Time.Creatable {
 	return {
 		email: "Test@test.com",
