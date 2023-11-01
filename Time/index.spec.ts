@@ -3,13 +3,6 @@ import * as fixtures from "../fixtures"
 import { weekmeter } from "../index"
 
 describe("Time", () => {
-	it("getData", () => {
-		const timeWeekScoped = weekmeter.Time.scope(fixtures.getTimesWeek(5))
-		console.log(timeWeekScoped)
-
-		const test = weekmeter.Time.iterate(timeWeekScoped)
-		console.log(test)
-	})
 	it("is", () => {
 		const time = fixtures.getTime()
 		expect(weekmeter.Time.is(time)).toEqual(true)
@@ -36,6 +29,14 @@ describe("Time", () => {
 		expect(times.length).toEqual(result.length)
 		for (const time of result)
 			expect(times.includes(time))
+	})
+
+	it("makeRow", () => {
+		const times = fixtures.getTimesWeek(5)
+		const scoped = weekmeter.Time.scope(times)
+		const rowFromTimes = weekmeter.Time.makeRow(times)
+		const rowFromScoped = weekmeter.Time.makeRow(scoped)
+		expect(rowFromTimes).toEqual(rowFromScoped)
 	})
 })
 

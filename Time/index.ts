@@ -54,13 +54,15 @@ export namespace Time {
 			[]
 		)
 	}
-	export function iterate(times: ReturnType<typeof scope>): {
+	export function makeRow(times: ReturnType<typeof scope> | Time[]): {
 		organization: Code
 		client: Code
 		project: Code
 		activity: Code
 		times: Record<isoly.Date, Time>
 	}[] {
+		if (Array.isArray(times))
+			times = scope(times)
 		return Object.entries(times).flatMap(([organization, client]) =>
 			Object.entries(client).flatMap(([client, project]) =>
 				Object.entries(project).flatMap(([project, activity]) =>
