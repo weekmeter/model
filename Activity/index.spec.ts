@@ -14,6 +14,22 @@ describe("Activity", () => {
 		expect(weekmeter.Activity.type.get(activity)).toEqual(fixtures.getActivity())
 		expect(weekmeter.Activity.type.get({ name: "asd" })).toEqual(undefined)
 	})
+	it("scope", () => {
+		const activities = fixtures.getActivities(210)
+		const scoped = weekmeter.Activity.scope(activities)
+		expect(weekmeter.Activity.Scoped.is(scoped)).toEqual(true)
+		expect(activities.length).toEqual(210)
+		expect(activities[0]).toBe(scoped["------o1"]["------c1"]["------p1"]["------a1"])
+		expect(activities[activities.length - 1]).toBe(scoped["------o7"]["------c5"]["------p3"]["------a2"])
+	})
+	it("fromScope", () => {
+		const activities = fixtures.getActivities(210)
+		const scoped = weekmeter.Activity.scope(activities)
+		const result = weekmeter.Activity.fromScope(scoped)
+		expect(activities.length).toEqual(result.length)
+		for (const activity of result)
+			expect(activities.includes(activity)).toEqual(true)
+	})
 })
 
 describe("Creatable", () => {

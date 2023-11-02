@@ -27,6 +27,7 @@ function createTime(): weekmeter.Time {
 	}
 }
 export function getTimes(n: number): weekmeter.Time[] {
+	const now = isoly.Date.now()
 	return Array.from({ length: n }).map((_, index) => getTime(index))
 	function getTime(n: number): weekmeter.Time {
 		return {
@@ -35,7 +36,7 @@ export function getTimes(n: number): weekmeter.Time[] {
 			project: `p${(n % 3) + 1}`.padStart(8, "-"),
 			activity: `a${(n % 2) + 1}`.padStart(8, "-"),
 			email: "jessie@rocket.com",
-			date: isoly.Date.now(),
+			date: isoly.Date.next(now, n),
 			modified: getModified(),
 			value: { hours: 8 },
 		}
@@ -81,6 +82,19 @@ function createActivity(): weekmeter.Activity {
 		name: "ActicityTest",
 		code: "actt",
 		modified: getModified(),
+	}
+}
+export function getActivities(n: number): weekmeter.Activity[] {
+	return Array.from({ length: n }).map((_, index) => getActivity(index))
+	function getActivity(n: number): weekmeter.Activity {
+		return {
+			organization: `o${(n % 7) + 1}`.padStart(8, "-"),
+			client: `c${(n % 5) + 1}`.padStart(8, "-"),
+			project: `p${(n % 3) + 1}`.padStart(8, "-"),
+			code: `a${(n % 2) + 1}`.padStart(8, "-"),
+			name: `Activity ${(n % 2) + 1}`,
+			modified: getModified(),
+		}
 	}
 }
 function createActivityCreatable(): weekmeter.Activity.Creatable {
