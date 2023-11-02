@@ -2,6 +2,7 @@ import { isoly } from "isoly"
 import { isly } from "isly"
 import { Code } from "../Code"
 import { Modified } from "../Modified"
+import { Scope } from "../Scope"
 import { Changeable as TimeChangeable } from "./Changeable"
 import { Creatable as TimeCreatable } from "./Creatable"
 
@@ -18,6 +19,18 @@ export namespace Time {
 		locked: isly.boolean(true).optional(),
 		modified: Modified.type,
 	})
+	export type Scoped = Record<Code, Record<Code, Record<Code, Record<Code, Record<isoly.Date, Time>>>>>
+	export namespace Scoped {
+		export const type = isly.record<Scoped>(
+			Code.type,
+			isly.record(
+				Code.type,
+				isly.record(Code.type, isly.record(Code.type, isly.record(isly.fromIs("isoly.Date", isoly.Date.is), Time.type)))
+			)
+		)
+		export const is = type.is
+		export const flaw = type.flaw
+	}
 	export const is = type.is
 	export const flaw = type.flaw
 	export function scope(
@@ -30,29 +43,7 @@ export namespace Time {
 		)
 	}
 	export function fromScope(times: ReturnType<typeof scope>): Time[] {
-		return Object.values(times).reduce(
-			(result: Time[], client) =>
-				result.concat(
-					Object.values(client).reduce(
-						(result: Time[], project) =>
-							result.concat(
-								Object.values(project).reduce(
-									(result: Time[], activity) =>
-										result.concat(
-											Object.values(activity).reduce(
-												(result: Time[], date) =>
-													result.concat(Object.values(date).reduce((result: Time[], time) => result.concat(time), [])),
-												[]
-											)
-										),
-									[]
-								)
-							),
-						[]
-					)
-				),
-			[]
-		)
+		return Scope.flat.constant<Time>(times, 5)
 	}
 	export function row(times: ReturnType<typeof scope> | Time[]): {
 		organization: Code
@@ -76,20 +67,5 @@ export namespace Time {
 				)
 			)
 		)
-	}
-}
-type Scope<T> = { [scope: string]: T | Scope<T> }
-namespace Scope {
-	export function insert<T>(target: Scope<T>, value: T, path: string[]): Scope<T> {
-		let result: Scope<T>
-		const segment = path[0]
-		if (path.length == 1)
-			result = Object.assign(target, { [segment]: value })
-		else {
-			result = target
-			if (path.length >= 2)
-				insert(target[segment] ?? Object.assign(target, { [segment]: {} })[segment], value, path.slice(1))
-		}
-		return result
 	}
 }

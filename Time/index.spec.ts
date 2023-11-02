@@ -19,8 +19,12 @@ describe("Time", () => {
 		const now = isoly.Date.now()
 		const times = fixtures.getTimes(210) // maximum "unique" times produced by fixture
 		const scoped = weekmeter.Time.scope(times)
+		expect(weekmeter.Time.Scoped.is(scoped)).toEqual(true)
+		expect(times.length).toEqual(210)
 		expect(times[0]).toBe(scoped["------o1"]["------c1"]["------p1"]["------a1"][now])
-		expect(times[times.length - 1]).toBe(scoped["------o7"]["------c5"]["------p3"]["------a2"][now])
+		expect(times[times.length - 1]).toBe(
+			scoped["------o7"]["------c5"]["------p3"]["------a2"][isoly.Date.next(now, 209)]
+		)
 	})
 	it("fromScope", () => {
 		const times = fixtures.getTimes(210)
@@ -28,7 +32,7 @@ describe("Time", () => {
 		const result = weekmeter.Time.fromScope(scoped)
 		expect(times.length).toEqual(result.length)
 		for (const time of result)
-			expect(times.includes(time))
+			expect(times.includes(time)).toEqual(true)
 	})
 
 	it("row", () => {
