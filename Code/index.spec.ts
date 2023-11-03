@@ -12,4 +12,11 @@ describe("Code", () => {
 		expect(weekmeter.Code.type.get(fixtures.getCode())).toEqual(fixtures.getCode())
 		expect(weekmeter.Code.type.get("hello ")).toEqual(undefined)
 	})
+	it("create", () => {
+		expect(weekmeter.Code.create("hello there")).toEqual("hello-there")
+		expect(weekmeter.Code.create("Hello There")).toEqual("hello-there")
+		expect(weekmeter.Code.create("hell0 th3r3")).toEqual("hell0-th3r3")
+		expect(weekmeter.Code.create("hello there¡@£$€¥{[]}#¤%&/()=?")).toEqual("hello-there")
+		expect(weekmeter.Code.create("   Hell0 Th3r3¡@££$€¥   ")).toEqual("hell0-th3r3")
+	})
 })
