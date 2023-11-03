@@ -8,6 +8,7 @@ export namespace Code {
 
 	export function create(name: string): string {
 		return name
+			.trim()
 			.toLocaleLowerCase()
 			.replace(/\s+/g, "-")
 			.replace(/[^\w-]/g, "")
