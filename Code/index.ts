@@ -11,6 +11,6 @@ export namespace Code {
 			.trim()
 			.toLocaleLowerCase()
 			.replace(/\s+/g, "-")
-			.replace(/[^\w-]/g, "")
+			.replace(/[^a-z0-9_-]/g, "")
 	}
 }
