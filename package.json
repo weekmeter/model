@@ -1,6 +1,6 @@
 {
 	"name": "@weekmeter/model",
-	"version": "0.1.6",
+	"version": "0.1.7",
 	"description": "Model for the Weekmeter app",
 	"author": "Weekmeter Contributors",
 	"license": "MIT",
