@@ -15,4 +15,7 @@ export namespace Creatable {
 	})
 	export const is = type.is
 	export const flaw = type.flaw
+	export function key(client: Creatable): string {
+		return `${client.organization}|${client.code}`
+	}
 }

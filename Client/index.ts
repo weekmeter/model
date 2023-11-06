@@ -11,4 +11,5 @@ export namespace Client {
 	export const type: isly.object.ExtendableType<Client> = Creatable.type.extend<Client>({ modified: Modified.type })
 	export const is = type.is
 	export const flaw = type.flaw
+	export const key = Creatable.key
 }

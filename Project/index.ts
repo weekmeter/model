@@ -11,4 +11,5 @@ export namespace Project {
 	export const type: isly.object.ExtendableType<Project> = Creatable.type.extend<Project>({ modified: Modified.type })
 	export const is = type.is
 	export const flaw = type.flaw
+	export const key = Creatable.key
 }

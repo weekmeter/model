@@ -14,6 +14,10 @@ describe("Project", () => {
 		expect(weekmeter.Project.type.get(project)).toEqual(fixtures.getProject())
 		expect(weekmeter.Project.type.get({ name: "asd" })).toEqual(undefined)
 	})
+	it("id", () => {
+		const [project] = fixtures.getProjects(1)
+		expect(weekmeter.Project.key(project)).toEqual(weekmeter.Project.Creatable.key(project))
+	})
 })
 
 describe("Creatable", () => {
@@ -28,5 +32,9 @@ describe("Creatable", () => {
 		const creatable = { ...fixtures.getProject.creatable(), from: "Testing" }
 		expect(weekmeter.Project.Creatable.type.get(creatable)).toEqual(fixtures.getProject.creatable())
 		expect(weekmeter.Project.Creatable.type.get({ name: "asd" })).toEqual(undefined)
+	})
+	it("id", () => {
+		const [project] = fixtures.getProjects(1)
+		expect(weekmeter.Project.Creatable.key(project)).toEqual("------o1|------c1|------p1")
 	})
 })
