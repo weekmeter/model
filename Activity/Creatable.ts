@@ -21,7 +21,7 @@ export namespace Creatable {
 	})
 	export const is = type.is
 	export const flaw = type.flaw
-	export function key(activity: Creatable): string {
+	export function key(activity: Omit<Creatable, "name">): string {
 		return `${activity.organization}|${activity.client}|${activity.project}|${activity.code}`
 	}
 }
