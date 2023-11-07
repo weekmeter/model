@@ -77,9 +77,8 @@ describe("Changeable", () => {
 		expect(weekmeter.Time.Changeable.type.get({ balance: "asd" })).toEqual(undefined)
 	})
 	it("key", () => {
+		const now = isoly.Date.now()
 		const [time] = fixtures.getTimes(1)
-		expect(weekmeter.Time.Changeable.key(time)).toEqual(
-			"------o1|jessie@rocket.com|2023-11-06|------c1|------p1|------a1"
-		)
+		expect(weekmeter.Time.Changeable.key(time)).toEqual(`------o1|jessie@rocket.com|${now}|------c1|------p1|------a1`)
 	})
 })
