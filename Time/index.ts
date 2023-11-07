@@ -33,6 +33,7 @@ export namespace Time {
 	}
 	export const is = type.is
 	export const flaw = type.flaw
+	export const key = Changeable.key
 	export function scope(
 		times: Time[]
 	): Record<Code, Record<Code, Record<Code, Record<Code, Record<isoly.Date, Time>>>>> {

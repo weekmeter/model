@@ -8,4 +8,7 @@ export namespace Changeable {
 	export const type = Creatable.type.extend<Changeable>({})
 	export const is = type.is
 	export const flaw = type.flaw
+	export function key(time: Changeable): string {
+		return `${time.organization}|${time.email}|${time.date}|${time.client}|${time.project}|${time.activity}`
+	}
 }

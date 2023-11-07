@@ -24,6 +24,7 @@ export namespace Activity {
 	}
 	export const is = type.is
 	export const flaw = type.flaw
+	export const key = Creatable.key
 	export function scope(activities: Activity[]): Record<Code, Record<Code, Record<Code, Record<Code, Activity>>>> {
 		return activities.reduce(
 			(result, activity) =>

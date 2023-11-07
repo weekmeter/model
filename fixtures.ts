@@ -113,6 +113,17 @@ function createClient(): weekmeter.Client {
 function createClientCreatable(): weekmeter.Client.Creatable {
 	return { name: "ClientTest", code: "ct", organization: "---o1---" }
 }
+export function getClients(n: number): weekmeter.Client[] {
+	return Array.from({ length: n }).map((_, index) => getClient(index))
+	function getClient(n: number): weekmeter.Client {
+		return {
+			organization: `o${(n % 3) + 1}`.padStart(8, "-"),
+			code: `c${(n % 2) + 1}`.padStart(8, "-"),
+			name: `Activity ${(n % 2) + 1}`,
+			modified: getModified(),
+		}
+	}
+}
 export const getProject = Object.assign(createProject, { creatable: createProjectCreatable })
 function createProject(): weekmeter.Project {
 	return {
@@ -125,4 +136,16 @@ function createProject(): weekmeter.Project {
 }
 function createProjectCreatable(): weekmeter.Project.Creatable {
 	return { name: "ProjectTest", code: "pt", organization: "---o1---", client: "clt" }
+}
+export function getProjects(n: number): weekmeter.Project[] {
+	return Array.from({ length: n }).map((_, index) => getProject(index))
+	function getProject(n: number): weekmeter.Project {
+		return {
+			organization: `o${(n % 5) + 1}`.padStart(8, "-"),
+			client: `c${(n % 3) + 1}`.padStart(8, "-"),
+			code: `p${(n % 2) + 1}`.padStart(8, "-"),
+			name: `Activity ${(n % 2) + 1}`,
+			modified: getModified(),
+		}
+	}
 }

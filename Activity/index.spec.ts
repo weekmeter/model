@@ -30,6 +30,10 @@ describe("Activity", () => {
 		for (const activity of result)
 			expect(activities.includes(activity)).toEqual(true)
 	})
+	it("key", () => {
+		const [activity] = fixtures.getActivities(1)
+		expect(weekmeter.Activity.key(activity)).toEqual(weekmeter.Activity.Creatable.key(activity))
+	})
 })
 
 describe("Creatable", () => {
@@ -44,5 +48,9 @@ describe("Creatable", () => {
 		const creatable = { ...fixtures.getActivity.creatable(), from: "TEsting" }
 		expect(weekmeter.Activity.Creatable.type.get(creatable)).toEqual(fixtures.getActivity.creatable())
 		expect(weekmeter.Activity.Creatable.type.get({ name: "asd" })).toEqual(undefined)
+	})
+	it("key", () => {
+		const [activity] = fixtures.getActivities(1)
+		expect(weekmeter.Activity.Creatable.key(activity)).toEqual("------o1|------c1|------p1|------a1")
 	})
 })
