@@ -42,7 +42,7 @@ describe("Time", () => {
 		const rowFromScoped = weekmeter.Time.row(scoped)
 		expect(rowFromTimes).toEqual(rowFromScoped)
 	})
-	it("id", () => {
+	it("key", () => {
 		const [time] = fixtures.getTimes(1)
 		expect(weekmeter.Time.key(time)).toEqual(weekmeter.Time.Changeable.key(time))
 	})
@@ -76,7 +76,7 @@ describe("Changeable", () => {
 		expect(weekmeter.Time.Changeable.type.get(changeable)).toEqual(fixtures.getTime.changeable())
 		expect(weekmeter.Time.Changeable.type.get({ balance: "asd" })).toEqual(undefined)
 	})
-	it("id", () => {
+	it("key", () => {
 		const [time] = fixtures.getTimes(1)
 		expect(weekmeter.Time.Changeable.key(time)).toEqual(
 			"------o1|jessie@rocket.com|2023-11-06|------c1|------p1|------a1"
