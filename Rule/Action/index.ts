@@ -11,7 +11,16 @@ export namespace Action {
 	export const type = isly.union<Action, Set, Adjust>(Set.type, Adjust.type)
 	export const is = type.is
 	export const flaw = type.flaw
-	export function parse(action: string): Action | undefined {
-		return Action.is(action) ? action : undefined
+	export function parse<T extends Record<string, unknown>>(
+		rule: string,
+		next?: (remainder: string) => T
+	): { action: Action | undefined } & T {
+		const [action, ...remainder] = rule.split(" ")
+		return Object.assign(
+			{
+				action: Set.parse(action) ?? Adjust.parse(action),
+			},
+			next?.(remainder.join(" "))
+		)
 	}
 }

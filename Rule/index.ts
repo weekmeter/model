@@ -1,61 +1,25 @@
-import { isoly } from "isoly"
-import { selectively } from "selectively"
 import { isly } from "isly"
+import { Action } from "./Action"
+import { Adjust } from "./Adjust"
+import { Base } from "./Base"
+import { Criteria } from "./Criteria"
+import { Set } from "./Set"
+import { State as RuleState } from "./State"
+import { Time } from "./Time"
 
-export class Rule {
-	constructor(
-		readonly action: "set" | "adjust",
-		readonly expected: isoly.TimeSpan | number,
-		readonly criteria: selectively.Rule
-	) {}
-	toString(): string {
-		return [this.action, this.criteria.toString()].join(" ")
-	}
-	evaluate(expected: number | undefined, state: State): number | undefined {
-		return !this.criteria.is(state)
-			? expected
-			: this.action == "set" && isoly.TimeSpan.is(this.expected)
-			? this.expected.hours
-			: expected == undefined
-			? undefined
-			: isoly.TimeSpan.is(this.expected)
-			? expected + (this.expected.hours ?? 0)
-			: expected * this.expected
-	}
-	static parse(rule: string): Rule | undefined {
-		const splitted = rule.split(rule, 3)
-		const action = splitted[0] == "set" || splitted[0] == "adjust" ? splitted[0] : undefined
-		const expected = splitted[1].endsWith("h")
-			? { hours: Number.parseFloat(splitted[1]) }
-			: action == "adjust" && splitted[1].endsWith("%")
-			? Number.parseFloat(splitted[1]) / 100
-			: undefined
-		const criteria = selectively.parse(splitted[2])
-		return action && expected != undefined && criteria ? { action, expected, criteria } : undefined
-	}
-}
-
+export type Rule = Pick<Base, keyof Base>
 export namespace Rule {
-	export const type = isly.object<Rule>({
-		duration: isly.fromIs<isoly.TimeSpan>("isoly.TimeSpan", isoly.TimeSpan.is),
-		criteria: isly.array(isly.string()),
-	})
-
-	export function expected(date: isoly.Date, rules: Rule[]): isoly.TimeSpan {
-		const rule = rules.find(rule =>
-			rule.criteria.some(criteria =>
-				selectively.parse(criteria).is({
-					date,
-					year: isoly.Date.getYear(date),
-					month: isoly.Date.getMonth(date),
-					week: isoly.Date.getWeek(date),
-					day: isoly.Date.getDay(date),
-					weekDay: isoly.Date.getWeekDay(date, "en-US", { format: "long" }),
-					// user
-					// country
-				})
-			)
-		)
-		return rule?.expected ?? {}
+	export type State = RuleState
+	export const State = RuleState
+	export const type = isly.fromIs<Rule>("Rule", value => value instanceof Base)
+	export const is = type.is
+	export const flaw = type.flaw
+	export function parse(rule: string): Rule | undefined {
+		const { action, time, criteria } = Action.parse(rule, remainder => Time.parse(remainder, Criteria.parse))
+		return action == undefined || time == undefined
+			? undefined
+			: Action.Set.is(action)
+			? Set.create(criteria, time)
+			: Adjust.create(criteria, time)
 	}
 }
