@@ -1,3 +1,4 @@
+import { weekmeter } from "../../index"
 import { Criteria } from "../Criteria"
 import { State } from "../State"
 import { Percentage } from "./Percentage"
@@ -26,5 +27,15 @@ describe("Rule.Adjust.Percentage", () => {
 		// mutability
 		expect(new Percentage(criteria, 1).evaluate(wednesday, time)).not.toBe(time)
 		expect(new Percentage(criteria, 1).evaluate(thursday, time)).not.toBe(time)
+	})
+	it("toString", () => {
+		expect(weekmeter.Rule.parse("adjust 80% weekDay:Wednesday")?.toString()).toEqual("adjust 80% weekDay:Wednesday")
+		expect(weekmeter.Rule.parse("adjust 80.2% weekDay:Wednesday")?.toString()).toEqual("adjust 80.2% weekDay:Wednesday")
+		expect(weekmeter.Rule.parse("adjust 80.02% weekDay:Wednesday")?.toString()).toEqual(
+			"adjust 80.02% weekDay:Wednesday"
+		)
+		expect(weekmeter.Rule.parse("adjust 8% weekDay:Wednesday")?.toString()).toEqual("adjust 8% weekDay:Wednesday")
+		expect(weekmeter.Rule.parse("adjust 8.20% weekDay:Wednesday")?.toString()).toEqual("adjust 8.2% weekDay:Wednesday")
+		expect(weekmeter.Rule.parse("adjust 8.0% weekDay:Wednesday")?.toString()).toEqual("adjust 8% weekDay:Wednesday")
 	})
 })

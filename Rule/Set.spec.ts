@@ -1,3 +1,4 @@
+import { weekmeter } from "../index"
 import { Adjust } from "./Adjust"
 import { Criteria } from "./Criteria"
 import { Set } from "./Set"
@@ -26,5 +27,13 @@ describe("Rule.Set", () => {
 		// mutability
 		expect(new Set(criteria, { hours: 8 }).evaluate(wednesday, {})).not.toBe(time)
 		expect(new Set(criteria, { hours: 8 }).evaluate(thursday, {})).not.toBe(time)
+	})
+	it("toString", () => {
+		expect(weekmeter.Rule.parse("set 8h weekDay:Wednesday")?.toString()).toEqual("set 8:00h weekDay:Wednesday")
+		expect(weekmeter.Rule.parse("set 8:3h weekDay:Wednesday")?.toString()).toEqual("set 8:03h weekDay:Wednesday")
+		expect(weekmeter.Rule.parse("set 8:30h weekDay:Wednesday")?.toString()).toEqual("set 8:30h weekDay:Wednesday")
+		expect(weekmeter.Rule.parse("set 8:300h weekDay:Wednesday")?.toString()).toEqual("set 8:300h weekDay:Wednesday")
+		expect(weekmeter.Rule.parse("set 10:30h weekDay:Wednesday")?.toString()).toEqual("set 10:30h weekDay:Wednesday")
+		expect(weekmeter.Rule.parse("set 100:30h weekDay:Wednesday")?.toString()).toEqual("set 100:30h weekDay:Wednesday")
 	})
 })

@@ -36,4 +36,12 @@ describe("Rule.Time.Span", () => {
 		expect(Span.parse("1:45")).toEqual(undefined)
 		expect(Span.parse("666:666")).toEqual(undefined)
 	})
+	it("toString", () => {
+		expect(Span.toString({})).toEqual("0:00h")
+		expect(Span.toString({ hours: 8 })).toEqual("8:00h")
+		expect(Span.toString({ hours: 8, minutes: 30 })).toEqual("8:30h")
+		expect(Span.toString({ hours: 8, minutes: 3 })).toEqual("8:03h")
+		expect(Span.toString({ hours: 10, minutes: 300 })).toEqual("10:300h")
+		expect(Span.toString({ hours: 100, minutes: 30 })).toEqual("100:30h")
+	})
 })

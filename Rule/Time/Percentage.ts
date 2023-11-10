@@ -21,6 +21,6 @@ export namespace Percentage {
 		return result
 	}
 	export function toString(time: Percentage): string {
-		return `${time.toString(10)}%`
+		return `${(time * 100).toString(10)}%`
 	}
 }
