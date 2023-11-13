@@ -1,20 +1,30 @@
 import { isoly } from "isoly"
 import { userwidgets } from "@userwidgets/model"
 import { isly } from "isly"
+import { Code } from "../Code"
 import { Action } from "./Action"
 import { Adjust } from "./Adjust"
-import { Base } from "./Base"
+import { Base as RuleBase } from "./Base"
 import { Criteria } from "./Criteria"
 import { Set } from "./Set"
 import { State } from "./State"
 import { Time } from "./Time"
 
-export type Rule = Pick<Base, keyof Base>
+export interface Rule {
+	code: Code
+	name: string
+	value: string
+}
 export namespace Rule {
-	export const type = isly.fromIs<Rule>("Rule", value => value instanceof Base)
-	export const is = type.is
-	export const flaw = type.flaw
-	export function parse(rule: string): Rule | undefined {
+	export type Base = RuleBase
+	export const Base = RuleBase
+	export const type = isly.object<Rule>({
+		code: Code.type,
+		name: isly.string(/^\.+$/),
+		value: isly.string(/^\.+$/),
+	})
+	export function parse(rule: Rule | string): Base | undefined {
+		rule = typeof rule == "string" ? rule : rule.value
 		const { action, time, criteria } = Action.parse(rule, remainder => Time.parse(remainder, Criteria.parse))
 		return action == undefined || time == undefined
 			? undefined
@@ -25,20 +35,20 @@ export namespace Rule {
 	export function expected(
 		user: userwidgets.Email,
 		dates: isoly.Date[] | isoly.DateRange,
-		rules: Rule[]
+		rules: Base[]
 	): isoly.TimeSpan
 	export function expected(
 		user: userwidgets.Email,
 		dates: isoly.Date[] | isoly.DateRange,
-		rules: (string | Rule)[]
+		rules: (Rule | string | Base)[]
 	): isoly.TimeSpan | undefined
 	export function expected(
 		user: userwidgets.Email,
 		dates: isoly.Date[] | isoly.DateRange,
-		raw: Rule[]
+		raw: Base[]
 	): isoly.TimeSpan | undefined {
 		let result: isoly.TimeSpan | undefined
-		const rules = raw.reduce((result: Rule[], rule) => result.concat(is(rule) ? rule : parse(rule) ?? []), [])
+		const rules = raw.reduce((result: Base[], rule) => result.concat(Base.is(rule) ? rule : parse(rule) ?? []), [])
 		if (raw.length > rules.length)
 			result = undefined
 		else {

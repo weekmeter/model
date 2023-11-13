@@ -1,4 +1,5 @@
 import { isoly } from "isoly"
+import { isly } from "isly"
 import { Criteria } from "./Criteria"
 import { State } from "./State"
 
@@ -16,4 +17,9 @@ export abstract class Base {
 	toString(): string {
 		return `${this.action} ${this.time} ${this.criteria.stringify()}`
 	}
+}
+export namespace Base {
+	export const type = isly.fromIs<Base>("Rule.Base", value => value instanceof Base)
+	export const is = type.is
+	export const flaw = type.flaw
 }
