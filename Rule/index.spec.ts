@@ -4,16 +4,14 @@ import { weekmeter } from "../index"
 import { Adjust } from "./Adjust"
 import { Percentage } from "./Adjust/Percentage"
 import { Span } from "./Adjust/Span"
-import { Criteria } from "./Criteria"
 import { Set } from "./Set"
 
 describe("Rule", () => {
 	it("is", () => {
-		const { criteria } = Criteria.parse("weekDay:Wednesday")
-		expect(weekmeter.Rule.is(new Span(criteria, { hours: 8 }))).toEqual(true)
-		expect(weekmeter.Rule.is(new Percentage(criteria, 0.8))).toEqual(true)
-		expect(weekmeter.Rule.is(new Set(criteria, { hours: 8 }))).toEqual(true)
-		expect(weekmeter.Rule.is(undefined)).toEqual(false)
+		const rules = fixtures.getRules("8h")
+		rules.forEach(rule => expect(weekmeter.Rule.is(rule)).toEqual(true))
+		rules.forEach(rule => expect(weekmeter.Rule.is((({ name, ...rule }) => rule)(rule))).toEqual(false))
+		rules.forEach(rule => expect(weekmeter.Rule.is((({ code, ...rule }) => rule)(rule))).toEqual(false))
 	})
 	it("parse", () => {
 		const span = weekmeter.Rule.parse("adjust 8h weekDay:Wednesday")
@@ -30,14 +28,14 @@ describe("Rule", () => {
 	it("8h day", () => {
 		const rules = fixtures.getRules("8h")
 		const result = weekmeter.Rule.expected("jessie@rocket", { start: "2023-04-10", end: "2023-04-16" }, rules)
-		expect(result.hours).toBeCloseTo(40)
+		expect(result?.hours).toBeCloseTo(40)
 		expect(result?.minutes).toEqual(undefined)
 		expect(isoly.TimeSpan.toHours(result ?? {})).toBeCloseTo(40)
 	})
 	it("7.5h day", () => {
 		const rules = fixtures.getRules("7:30h")
 		const result = weekmeter.Rule.expected("jessie@rocket", { start: "2023-04-10", end: "2023-04-16" }, rules)
-		expect(isoly.TimeSpan.toHours(result)).toBeCloseTo(37.5)
+		expect(isoly.TimeSpan.toHours(result ?? {})).toBeCloseTo(37.5)
 	})
 	it("8h day Maundy Thursday (half day + day off)", () => {
 		const rules = [...fixtures.getRules("8h"), "adjust 50% date:2023-04-03", "set 0h date:2023-04-07"]

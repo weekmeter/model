@@ -1,9 +1,9 @@
 import { isoly } from "isoly"
-import { weekmeter } from "../index"
+import { State } from "./State"
 
 describe("Rule.State", () => {
 	it("is", () => {
-		const state: weekmeter.Rule.State = {
+		const state: State = {
 			date: "2023-01-01",
 			year: "2023",
 			month: "1",
@@ -12,10 +12,10 @@ describe("Rule.State", () => {
 			weekDay: "Sunday",
 			user: "jessie@rocket.com",
 		}
-		expect(weekmeter.Rule.State.is(state))
+		expect(State.is(state))
 	})
 	it("create", () => {
-		expect(weekmeter.Rule.State.create("2023-01-01", "jessie@rocket.com")).toEqual({
+		expect(State.create("2023-01-01", "jessie@rocket.com")).toEqual({
 			date: "2023-01-01",
 			year: "2023",
 			month: "1",
@@ -29,9 +29,9 @@ describe("Rule.State", () => {
 		const user = "jessie@rocket.com"
 		const dates = isoly.DateRange.toDates({ start: "2023-01-01", end: "2023-01-07" }, true)
 		expect(dates.length).toEqual(7)
-		const states = dates.map(date => weekmeter.Rule.State.create(date, user))
+		const states = dates.map(date => State.create(date, user))
 		console.log("State 0", states.at(0))
 		for (const state of states)
-			expect(weekmeter.Rule.State.is(state))
+			expect(State.is(state))
 	})
 })

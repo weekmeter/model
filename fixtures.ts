@@ -151,10 +151,10 @@ export function getProjects(n: number): weekmeter.Project[] {
 }
 export function getRules(time = "8h"): weekmeter.Rule[] {
 	return [
-		`set ${time} weekDay:Monday`,
-		`set ${time} weekDay:Tuesday`,
-		`set ${time} weekDay:Wednesday`,
-		`set ${time} weekDay:Thursday`,
-		`set ${time} weekDay:Friday`,
-	].reduce((result: weekmeter.Rule[], rule) => result.concat(weekmeter.Rule.parse(rule) ?? []), [])
+		{ code: "monday", name: "Monday", value: `set ${time} weekDay:Monday` },
+		{ code: "tuesday", name: "Tuesday", value: `set ${time} weekDay:Tuesday` },
+		{ code: "wednesday", name: "Wednesday", value: `set ${time} weekDay:Wednesday` },
+		{ code: "thursday", name: "Thursday", value: `set ${time} weekDay:Thursday` },
+		{ code: "friday", name: "Friday", value: `set ${time} weekDay:Friday` },
+	]
 }

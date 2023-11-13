@@ -20,9 +20,11 @@ export namespace Rule {
 	export const Base = RuleBase
 	export const type = isly.object<Rule>({
 		code: Code.type,
-		name: isly.string(/^\.+$/),
-		value: isly.string(/^\.+$/),
+		name: isly.string(/^.+$/),
+		value: isly.string(/^[^ ]+ [^ ]+ .+$/),
 	})
+	export const is = type.is
+	export const flaw = type.flaw
 	export function parse(rule: Rule | string): Base | undefined {
 		rule = typeof rule == "string" ? rule : rule.value
 		const { action, time, criteria } = Action.parse(rule, remainder => Time.parse(remainder, Criteria.parse))
