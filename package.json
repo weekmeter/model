@@ -68,10 +68,7 @@
 	"dependencies": {
 		"@userwidgets/model": "^0.8.11",
 		"isly": "^0.1.10",
-		"isoly": "^2.0.32"
-	},
-	"overrides": {
-		"semver": "7.5.3",
-		"optionator": "0.9.3"
+		"isoly": "^2.1.1",
+		"selectively": "^2.0.9"
 	}
 }
