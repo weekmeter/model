@@ -2,11 +2,9 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { isly } from "isly"
 import { Modified } from "../../Modified"
-import { Rule } from "../../Rule"
 import { Changeable as GroupChangeable } from "./Changeable"
 
-export interface Group {
-	rules: Rule[]
+export interface Group extends Group.Changeable {
 	modified: Modified
 }
 export namespace Group {
