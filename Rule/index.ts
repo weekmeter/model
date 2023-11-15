@@ -1,17 +1,13 @@
 import { isoly } from "isoly"
 import { userwidgets } from "@userwidgets/model"
-// This import is unused but required. The produced build is wrong without it
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { isly } from "isly"
 import { Action } from "./Action"
 import { Adjust } from "./Adjust"
 import { Base as RuleBase } from "./Base"
 import { Criteria } from "./Criteria"
-import { Group as RuleGroup } from "./Group"
 import { Set } from "./Set"
 import { State } from "./State"
 import { Time } from "./Time"
-import { type as RuleType } from "./type"
 
 export interface Rule {
 	name: string
@@ -20,13 +16,11 @@ export interface Rule {
 export namespace Rule {
 	export type Base = RuleBase
 	export const Base = RuleBase
-	export type Group = RuleGroup
-	export const Group = RuleGroup
-	export namespace Group {
-		export type Changeable = RuleGroup.Changeable
-	}
 
-	export const type = RuleType
+	export const type = isly.object<Rule>({
+		name: isly.string(/^.+$/),
+		value: isly.string(/^[^ ]+ [^ ]+ .+$/),
+	})
 	export const is = type.is
 	export const flaw = type.flaw
 	export function parse(rule: Rule | string): Base | undefined {
