@@ -5,7 +5,6 @@ describe("Rules", () => {
 	it("is", () => {
 		const rules = fixtures.getRules()
 		expect(weekmeter.Rules.is(rules)).toEqual(true)
-		expect(weekmeter.Rules.is((({ organization, ...rules }) => rules)(rules))).toEqual(false)
 		expect(weekmeter.Rules.is((({ common, ...rules }) => rules)(rules))).toEqual(false)
 		expect(weekmeter.Rules.is((({ users, ...rules }) => rules)(rules))).toEqual(false)
 	})

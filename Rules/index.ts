@@ -3,7 +3,7 @@ import { isly } from "isly"
 import { Rule } from "../Rule"
 import { Changeable as RulesChangeable } from "./Changeable"
 import { Group as RulesGroup } from "./Group"
-export interface Rules extends Rules.Changeable {
+export interface Rules {
 	common: Rules.Group
 	users: Record<userwidgets.Email, Rules.Group>
 }
@@ -16,7 +16,6 @@ export namespace Rules {
 	export type Changeable = RulesChangeable
 	export const Changeable = RulesChangeable
 	export const type = isly.object<Rules>({
-		organization: userwidgets.Organization.Identifier.type,
 		common: Group.type,
 		users: isly.record<userwidgets.Email, Group>(userwidgets.Email.type, Group.type),
 	})

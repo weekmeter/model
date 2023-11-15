@@ -3,13 +3,11 @@ import { isly } from "isly"
 import { Group } from "./Group"
 
 export interface Changeable {
-	organization: userwidgets.Organization.Identifier
 	common?: Group.Changeable
 	users?: Record<userwidgets.Email, Group.Changeable>
 }
 export namespace Changeable {
 	export const type = isly.object<Changeable>({
-		organization: userwidgets.Organization.Identifier.type,
 		common: Group.Changeable.type.optional(),
 		users: isly.union<undefined | Changeable["users"], undefined, Changeable["users"]>(
 			isly.undefined(),

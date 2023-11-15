@@ -163,7 +163,6 @@ export const getRules = Object.assign(createRules, { changeable: createRulesChan
 function createRules(time = "8h"): weekmeter.Rules {
 	const modified = getModified()
 	return {
-		organization: "------o1",
 		common: { modified: { ...modified }, rules: getRuleArray(time) },
 		users: {
 			"jessie@rocket.com": {
@@ -175,7 +174,6 @@ function createRules(time = "8h"): weekmeter.Rules {
 }
 function createRulesChangeable(time = "8h"): Required<weekmeter.Rules.Changeable> {
 	return {
-		organization: "------o1",
 		common: { rules: getRuleArray(time) },
 		users: {
 			"jessie@rocket.com": { rules: [{ name: "80%", value: "adjust 80% user:jessie@rocket*" }] },
