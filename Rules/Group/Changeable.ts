@@ -1,6 +1,5 @@
 import { isly } from "isly"
 import { Rule } from "../../Rule/index"
-// import { type as RuleType } from "../../Rule/type"
 
 export interface Changeable {
 	rules: Rule[]
