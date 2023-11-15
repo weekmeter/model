@@ -1,7 +1,6 @@
 import { isoly } from "isoly"
 import { userwidgets } from "@userwidgets/model"
 import { isly } from "isly"
-import { Code } from "../Code"
 import { Action } from "./Action"
 import { Adjust } from "./Adjust"
 import { Base as RuleBase } from "./Base"
@@ -11,15 +10,14 @@ import { State } from "./State"
 import { Time } from "./Time"
 
 export interface Rule {
-	code: Code
 	name: string
 	value: string
 }
 export namespace Rule {
 	export type Base = RuleBase
 	export const Base = RuleBase
+
 	export const type = isly.object<Rule>({
-		code: Code.type,
 		name: isly.string(/^.+$/),
 		value: isly.string(/^[^ ]+ [^ ]+ .+$/),
 	})
