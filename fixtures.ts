@@ -166,7 +166,10 @@ function createRules(time = "8h"): weekmeter.Rules {
 		organization: "------o1",
 		common: { modified: { ...modified }, rules: getRuleArray(time) },
 		users: {
-			"jessie@rocket": { modified: { ...modified }, rules: [{ name: "80%", value: "adjust 80% user:jessie@rocket" }] },
+			"jessie@rocket.com": {
+				modified: { ...modified },
+				rules: [{ name: "80%", value: "adjust 80% user:jessie@rocket*" }],
+			},
 		},
 	}
 }
@@ -175,7 +178,7 @@ function createRulesChangeable(time = "8h"): Required<weekmeter.Rules.Changeable
 		organization: "------o1",
 		common: { rules: getRuleArray(time) },
 		users: {
-			"jessie@rocket": { rules: [{ name: "80%", value: "adjust 80% user:jessie@rocket" }] },
+			"jessie@rocket.com": { rules: [{ name: "80%", value: "adjust 80% user:jessie@rocket*" }] },
 		},
 	}
 }

@@ -1,8 +1,8 @@
 import { userwidgets } from "@userwidgets/model"
 import { isly } from "isly"
+import { Rule } from "../Rule"
 import { Changeable as RulesChangeable } from "./Changeable"
 import { Group as RulesGroup } from "./Group"
-
 export interface Rules extends Rules.Changeable {
 	common: Rules.Group
 	users: Record<userwidgets.Email, Rules.Group>
@@ -22,4 +22,7 @@ export namespace Rules {
 	})
 	export const is = type.is
 	export const flaw = type.flaw
+	export function array(rules: Rules, ...users: userwidgets.Email[]): Rule[] {
+		return rules.common.rules.concat(users.flatMap(user => rules.users[user]?.rules ?? []))
+	}
 }

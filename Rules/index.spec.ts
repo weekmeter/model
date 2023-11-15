@@ -15,4 +15,12 @@ describe("Rules", () => {
 		expect(changeable).toBeTruthy()
 		expect(rules).not.toEqual(changeable)
 	})
+	it("array", () => {
+		const rules = fixtures.getRules()
+		expect(weekmeter.Rules.array(rules)).toEqual(rules.common.rules)
+		expect(weekmeter.Rules.array(rules, "james@rocket.com")).toEqual(rules.common.rules)
+		expect(weekmeter.Rules.array(rules, "jessie@rocket.com")).toEqual(
+			rules.common.rules.concat(rules.users["jessie@rocket.com"].rules)
+		)
+	})
 })
