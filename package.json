@@ -53,10 +53,10 @@
 		"clean": "rimraf dist node_modules coverage"
 	},
 	"devDependencies": {
-		"@types/jest": "^29.5.5",
-		"@typescript-eslint/eslint-plugin": "6.7.5",
-		"@typescript-eslint/parser": "6.7.5",
-		"eslint": "^8.51.0",
+		"@types/jest": "^29.5.8",
+		"@typescript-eslint/eslint-plugin": "6.11.0",
+		"@typescript-eslint/parser": "6.11.0",
+		"eslint": "^8.53.0",
 		"eslint-plugin-prettierx": "github:utily/eslint-plugin-prettierx#utily-20231004",
 		"eslint-plugin-simple-import-sort": "^10.0.0",
 		"jest": "^29.7.0",
@@ -66,8 +66,8 @@
 		"typescript": "^5.2.2"
 	},
 	"dependencies": {
-		"@userwidgets/model": "^0.8.11",
-		"isly": "^0.1.10",
+		"@userwidgets/model": "^0.8.12",
+		"isly": "^0.1.12",
 		"isoly": "^2.1.1",
 		"selectively": "^2.0.9"
 	}

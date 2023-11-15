@@ -149,12 +149,33 @@ export function getProjects(n: number): weekmeter.Project[] {
 		}
 	}
 }
-export function getRules(time = "8h"): weekmeter.Rule[] {
+export const getRuleArray = Object.assign(createRuleArray, {})
+function createRuleArray(time = "8h"): weekmeter.Rule[] {
 	return [
-		{ code: "monday", name: "Monday", value: `set ${time} weekDay:Monday` },
-		{ code: "tuesday", name: "Tuesday", value: `set ${time} weekDay:Tuesday` },
-		{ code: "wednesday", name: "Wednesday", value: `set ${time} weekDay:Wednesday` },
-		{ code: "thursday", name: "Thursday", value: `set ${time} weekDay:Thursday` },
-		{ code: "friday", name: "Friday", value: `set ${time} weekDay:Friday` },
+		{ name: "Monday", value: `set ${time} weekDay:Monday` },
+		{ name: "Tuesday", value: `set ${time} weekDay:Tuesday` },
+		{ name: "Wednesday", value: `set ${time} weekDay:Wednesday` },
+		{ name: "Thursday", value: `set ${time} weekDay:Thursday` },
+		{ name: "Friday", value: `set ${time} weekDay:Friday` },
 	]
+}
+export const getRules = Object.assign(createRules, { changeable: createRulesChangeable })
+function createRules(time = "8h"): weekmeter.Rules {
+	const modified = getModified()
+	return {
+		organization: "------o1",
+		common: { modified: { ...modified }, rules: getRuleArray(time) },
+		users: {
+			"jessie@rocket": { modified: { ...modified }, rules: [{ name: "80%", value: "adjust 80% user:jessie@rocket" }] },
+		},
+	}
+}
+function createRulesChangeable(time = "8h"): Required<weekmeter.Rules.Changeable> {
+	return {
+		organization: "------o1",
+		common: { rules: getRuleArray(time) },
+		users: {
+			"jessie@rocket": { rules: [{ name: "80%", value: "adjust 80% user:jessie@rocket" }] },
+		},
+	}
 }
