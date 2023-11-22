@@ -7,7 +7,7 @@ import { Changeable as TimeChangeable } from "./Changeable"
 import { Creatable as TimeCreatable } from "./Creatable"
 
 export interface Time extends Time.Creatable {
-	locked?: true
+	locked?: { expected: isoly.TimeSpan }
 	modified: Modified
 }
 export namespace Time {
@@ -16,7 +16,11 @@ export namespace Time {
 	export type Changeable = TimeChangeable
 	export const Changeable = TimeChangeable
 	export const type: isly.object.ExtendableType<Time> = Creatable.type.extend<Time>({
-		locked: isly.boolean(true).optional(),
+		locked: isly
+			.object<Exclude<Time["locked"], undefined>>({
+				expected: isly.fromIs<isoly.TimeSpan>("isoly.TimeSpan", isoly.TimeSpan.is),
+			})
+			.optional(),
 		modified: Modified.type,
 	})
 	export type Scoped = Record<Code, Record<Code, Record<Code, Record<Code, Record<isoly.Date, Time>>>>>
