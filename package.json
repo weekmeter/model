@@ -68,7 +68,7 @@
 	"dependencies": {
 		"@userwidgets/model": "^0.8.12",
 		"isly": "^0.1.12",
-		"isoly": "^2.1.1",
+		"isoly": "^2.3.1",
 		"selectively": "^2.0.9"
 	}
 }
