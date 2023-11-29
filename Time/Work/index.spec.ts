@@ -1,23 +1,29 @@
 import { isoly } from "isoly"
-import * as fixtures from "../fixtures"
-import { weekmeter } from "../index"
+// import * as fixtures from "../../fixtures"
+import { weekmeter } from "../../index"
+import * as fixtures from "./fixtures"
 
 describe("Time", () => {
 	it("is", () => {
-		const time = fixtures.getTime()
-		expect(weekmeter.Time.is(time)).toEqual(true)
-		expect(weekmeter.Time.is((({ organization, ...time }) => time)(time))).toEqual(false)
-		expect(weekmeter.Time.is({ ...time, value: "testing" })).toEqual(false)
+		const [time]: weekmeter.Time.Work[] = fixtures.create.work()
+		expect(weekmeter.Time.Work.is(time)).toEqual(true)
+		expect(weekmeter.Time.Work.is({ ...time, type: "sick" })).toEqual(false)
+		expect(weekmeter.Time.Work.is((({ client, ...time }) => time)(time))).toEqual(false)
+		expect(weekmeter.Time.Work.is((({ project, ...time }) => time)(time))).toEqual(false)
+		expect(weekmeter.Time.Work.is((({ activity, ...time }) => time)(time))).toEqual(false)
+		expect(weekmeter.Time.Work.is((({ email, ...time }) => time)(time))).toEqual(false)
+		expect(weekmeter.Time.Work.is((({ organization, ...time }) => time)(time))).toEqual(false)
+		expect(weekmeter.Time.Work.is((({ date, ...time }) => time)(time))).toEqual(false)
 	})
 
 	it("get", () => {
-		const time = { ...fixtures.getTime(), from: "Testing" }
-		expect(weekmeter.Time.type.get(time)).toEqual(fixtures.getTime())
+		const [time] = fixtures.create.work()
+		expect(weekmeter.Time.type.get({ ...time, from: "Testing" })).toEqual(time)
 		expect(weekmeter.Time.type.get({ balance: "asd" })).toEqual(undefined)
 	})
 	it("scope", () => {
 		const now = isoly.Date.now()
-		const times = fixtures.getTimes(210) // maximum "unique" times produced by fixture
+		const times = fixtures.create.work(210) // maximum "unique" times produced by fixture
 		const scoped = weekmeter.Time.scope(times)
 		expect(weekmeter.Time.Scoped.is(scoped)).toEqual(true)
 		expect(times.length).toEqual(210)
