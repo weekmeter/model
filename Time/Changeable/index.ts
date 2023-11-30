@@ -41,11 +41,13 @@ export namespace Changeable {
 	): Scoped {
 		const result = times
 			.filter(time => time.email == email && time.organization == organization)
-			.reduce<Scoped>((result, time) => {
-				return Scope.insert<Scoped>(result, map.scope[time.type]((result[time.type] ?? {}) as any, time as any), [
-					time.type,
-				])
-			}, {})
+			.reduce<Scoped>(
+				(result, time) =>
+					Scope.insert<Scoped>(result, map.scope[time.type]((result[time.type] ?? {}) as any, time as any), [
+						time.type,
+					]),
+				{}
+			)
 		return result
 	}
 	export function row(times: Scoped): Record<isoly.Date, Changeable>[]
@@ -60,9 +62,9 @@ export namespace Changeable {
 		email?: userwidgets.Email
 	): Record<isoly.Date, Changeable>[] {
 		const scoped = !Array.isArray(times) ? times : !organization || !email ? {} : scope(times, organization, email)
-		return Object.entries(scoped).flatMap<Record<isoly.Date, Changeable>>(([type, scoped]) => {
-			return (map.row[type as Type] as (scoped: any) => ReturnType<typeof map.row[Type]>)(scoped)
-		})
+		return Object.entries(scoped).flatMap<Record<isoly.Date, Changeable>>(([type, scoped]) =>
+			(map.row[type as Type] as (scoped: any) => ReturnType<typeof map.row[Type]>)(scoped)
+		)
 	}
 	const map = {
 		scope: {
