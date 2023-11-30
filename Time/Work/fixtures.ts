@@ -3,9 +3,9 @@ import * as fixtures from "../Changeable/fixtures"
 import { Changeable } from "./Changeable"
 import { Work } from "./index"
 
-export const create = Object.assign({}, { work: createWorks, creatable: createWorkCreatables })
+export const create = Object.assign(createWorks, { changeable: createWorkCreatables })
 function createWorkCreatables(n: number = 1): Changeable[] {
-	return fixtures.createChangeableBases("work", n).map<Changeable>((time, index) => ({
+	return fixtures.create("work", n).map<Changeable>((time, index) => ({
 		...time,
 		type: "work",
 		client: `c${(index % 5) + 1}`.padStart(8, "-"),
@@ -14,8 +14,8 @@ function createWorkCreatables(n: number = 1): Changeable[] {
 	}))
 }
 function createWorks(n: number = 1): Work[] {
-	return createWorkCreatables(n).map<Work>(work => ({
-		...work,
-		modified: { by: work.email, value: isoly.DateTime.now() },
+	return createWorkCreatables(n).map<Work>(time => ({
+		...time,
+		modified: { by: time.email, value: isoly.DateTime.now() },
 	}))
 }

@@ -45,4 +45,5 @@ export namespace Time {
 	export const is = type.is
 	export const flaw = type.flaw
 	export const scope = Changeable.scope
+	export const row = Changeable.row
 }

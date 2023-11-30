@@ -1,3 +1,4 @@
+import { isoly } from "isoly"
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { isly } from "isly"
 import { Base } from "../Changeable/Base"
@@ -7,7 +8,7 @@ export interface Changeable extends Base {
 	type: Type.Sick
 }
 export namespace Changeable {
-	export type Scoped = Base.Scoped<Changeable>
+	export type Scoped<T extends Changeable = Changeable> = Base.Scoped<T>
 	export const type = Base.type.extend<Changeable>({
 		type: Type.Sick.type,
 	})
@@ -17,4 +18,7 @@ export namespace Changeable {
 		return Base.key(time)
 	}
 	export const scope = Base.scope
+	export function row<T extends Changeable>(times: Scoped<T>): Record<isoly.Date, T>[] {
+		return [times]
+	}
 }

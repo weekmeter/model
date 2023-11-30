@@ -12,6 +12,7 @@ export interface Base {
 }
 export namespace Base {
 	export type Scoped<T extends Base> = Record<isoly.Date, T>
+	export type Row<T extends Base> = Record<isoly.Date, T>
 	export const type = isly.object<Base>({
 		type: Type.type,
 		organization: userwidgets.Organization.Identifier.type,
@@ -22,10 +23,12 @@ export namespace Base {
 	export const is = type.is
 	export const flaw = type.flaw
 	export function key(time: Omit<Base, "value">): string {
-		return `${time.organization}|${time.email}|${time.date}${time.type}`
+		return `${time.organization}|${time.email}|${time.date}|${time.type}`
 	}
 	export function scope<T extends Base>(target: Scoped<T>, time: T): Scoped<T> {
 		return Object.assign(target, { [time.date]: time })
 	}
-	export function row<T extends Base>(times: T[], time: T) {}
+	export function row<T extends Base>(times: Scoped<T>): Record<isoly.Date, T>[] {
+		return [times]
+	}
 }

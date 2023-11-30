@@ -12,4 +12,5 @@ export namespace Work {
 	export const flaw = type.flaw
 	export const key = Changeable.key
 	export const scope = Changeable.scope
+	export const row = Changeable.row
 }
