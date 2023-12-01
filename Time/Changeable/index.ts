@@ -22,7 +22,10 @@ export namespace Changeable {
 	export const Vacation = ChangeableVacation
 	export type Work = ChangeableWork
 	export const Work = ChangeableWork
-	export type Scoped = { [type in Type]?: ReturnType<typeof map.scope[type]> }
+	export type Scoped = Record<
+		userwidgets.Organization.Identifier,
+		{ [type in Type]?: ReturnType<typeof map.scope[type]> }
+	>
 	export type Row = { [type in Type]?: ReturnType<typeof map.row[type]> }
 	export const type = isly.union<Changeable, Sick, Unpaid, Vab, Vacation, Work>(
 		Sick.type,
@@ -34,36 +37,28 @@ export namespace Changeable {
 	export const is = type.is
 	export const flaw = type.flaw
 	export const key = Base.key
-	export function scope(
-		times: Changeable[],
-		organization: userwidgets.Organization.Identifier,
-		email: userwidgets.Email
-	): Scoped {
+	export function scope(times: Changeable[], email: userwidgets.Email): Scoped {
 		const result = times
-			.filter(time => time.email == email && time.organization == organization)
+			.filter(time => time.email == email)
 			.reduce<Scoped>(
 				(result, time) =>
-					Scope.insert<Scoped>(result, map.scope[time.type]((result[time.type] ?? {}) as any, time as any), [
-						time.type,
-					]),
+					Scope.insert<Scoped>(
+						result,
+						map.scope[time.type]((result[time.organization]?.[time.type] ?? {}) as any, time as any),
+						[time.organization, time.type]
+					),
 				{}
 			)
 		return result
 	}
 	export function row(times: Scoped): Record<isoly.Date, Changeable>[]
-	export function row(
-		times: Changeable[],
-		organization: userwidgets.Organization.Identifier,
-		email: userwidgets.Email
-	): Record<isoly.Date, Changeable>[]
-	export function row(
-		times: Scoped | Changeable[],
-		organization?: userwidgets.Organization.Identifier,
-		email?: userwidgets.Email
-	): Record<isoly.Date, Changeable>[] {
-		const scoped = !Array.isArray(times) ? times : !organization || !email ? {} : scope(times, organization, email)
-		return Object.entries(scoped).flatMap<Record<isoly.Date, Changeable>>(([type, scoped]) =>
-			(map.row[type as Type] as (scoped: any) => ReturnType<typeof map.row[Type]>)(scoped)
+	export function row(times: Changeable[], email: userwidgets.Email): Record<isoly.Date, Changeable>[]
+	export function row(times: Scoped | Changeable[], email?: userwidgets.Email): Record<isoly.Date, Changeable>[] {
+		const scoped = !Array.isArray(times) ? times : !email ? {} : scope(times, email)
+		return Object.entries(scoped).flatMap(([, scoped]) =>
+			Object.entries(scoped).flatMap<Record<isoly.Date, Changeable>>(([type, scoped]) =>
+				(map.row[type as Type] as (scoped: any) => ReturnType<typeof map.row[Type]>)(scoped)
+			)
 		)
 	}
 	const map = {
