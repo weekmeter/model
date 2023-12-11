@@ -18,4 +18,6 @@ export namespace Base {
 			.optional(),
 		modified: Modified.type,
 	})
+	export const is = type.is
+	export const flaw = type.flaw
 }

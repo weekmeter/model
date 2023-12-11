@@ -1,4 +1,5 @@
 import { isly } from "isly"
+import { Base as TimeBase } from "./Base"
 import { Changeable as TimeChangeable } from "./Changeable"
 import { Sick as TimeSick } from "./Sick"
 import { Type as TimeType } from "./Type"
@@ -9,6 +10,8 @@ import { Work as TimeWork } from "./Work"
 
 export type Time = Time.Sick | Time.Unpaid | Time.Vab | Time.Vacation | Time.Work
 export namespace Time {
+	export type Base = TimeBase
+	export const Base = TimeBase
 	export type Type = TimeType
 	export const Type = TimeType
 	export namespace Type {
@@ -20,6 +23,9 @@ export namespace Time {
 	}
 	export type Changeable = TimeChangeable
 	export const Changeable = TimeChangeable
+	export namespace Changeable {
+		export type Base = TimeChangeable.Base
+	}
 	export type Sick = TimeSick
 	export const Sick = TimeSick
 	export namespace Sick {
@@ -54,7 +60,5 @@ export namespace Time {
 	)
 	export const is = type.is
 	export const flaw = type.flaw
-	export const scope = Changeable.scope
-	export const row = Changeable.row
 	export const key = Changeable.key
 }

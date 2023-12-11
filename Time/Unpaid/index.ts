@@ -6,12 +6,8 @@ export type Unpaid = Base & UnpaidChangeable
 export namespace Unpaid {
 	export type Changeable = UnpaidChangeable
 	export const Changeable = UnpaidChangeable
-	export type Scoped = UnpaidChangeable.Scoped
 	export const type = isly.intersection<Unpaid, Base, Unpaid.Changeable>(Base.type, UnpaidChangeable.type)
 	export const is = type.is
 	export const flaw = type.flaw
 	export const key = Changeable.key
-	export const scope = Changeable.scope
-	export const fromScope = Changeable.fromScope
-	export const row = Changeable.row
 }

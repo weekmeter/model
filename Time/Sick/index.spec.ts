@@ -1,20 +1,16 @@
-import { isoly } from "isoly"
-import { Time } from "../index"
-// import { Sick } from "./index"
+import { weekmeter } from "../.."
+import * as fixtures from "./fixtures"
 
-describe("Sick", () => {
-	it("testing", () => {
-		const time: Time = {
-			type: "sick",
-			organization: "---o1---",
-			email: "jessie@rocket.com",
-			date: isoly.Date.now(),
-			value: { hours: 1 },
-			modified: { by: "jessie@rocket.com", value: isoly.DateTime.now() },
-		}
-		const result = Time.is((({ type, ...time }) => ({ ...time, type: "work" }))(time))
-		console.log(result)
-		expect(result).toEqual(false)
-		expect(Time.type.get({ ...time, project: "testing" })).toEqual(time)
+describe("Time.Sick", () => {
+	it("type", () => {
+		const [time]: weekmeter.Time.Sick[] = fixtures.create(1)
+		expect(weekmeter.Time.Sick.is(time)).toEqual(true)
+		expect(weekmeter.Time.Sick.is((({ type, ...time }) => time)(time))).toEqual(false)
+		expect(weekmeter.Time.Sick.is((({ date, ...time }) => time)(time))).toEqual(false)
+		expect(weekmeter.Time.Sick.is((({ email, ...time }) => time)(time))).toEqual(false)
+		expect(weekmeter.Time.Sick.is((({ organization, ...time }) => time)(time))).toEqual(false)
+		expect(weekmeter.Time.Sick.is((({ value, ...time }) => time)(time))).toEqual(false)
+		expect(weekmeter.Time.Sick.type.get(time)).toEqual(time)
+		expect(weekmeter.Time.Sick.type.get({ ...time, garbage: true })).toEqual(time)
 	})
 })
