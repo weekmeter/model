@@ -8,10 +8,14 @@ import { Changeable as ChangeableUnpaid } from "../Unpaid/Changeable"
 import { Changeable as ChangeableVab } from "../Vab/Changeable"
 import { Changeable as ChangeableVacation } from "../Vacation/Changeable"
 import { Changeable as ChangeableWork } from "../Work/Changeable"
-import { Base } from "./Base"
+import { Base as ChangeableBase } from "./Base"
+
+type DistributiveOmit<T, K extends keyof any> = T extends any ? Omit<T, K> : never
 
 export type Changeable = Changeable.Sick | Changeable.Unpaid | Changeable.Vab | Changeable.Vacation | Changeable.Work
 export namespace Changeable {
+	export type Base = ChangeableBase
+	export const Base = ChangeableBase
 	export type Sick = ChangeableSick
 	export const Sick = ChangeableSick
 	export type Unpaid = ChangeableUnpaid
@@ -36,30 +40,40 @@ export namespace Changeable {
 	)
 	export const is = type.is
 	export const flaw = type.flaw
-	export const key = Base.key
-	export function scope(times: Changeable[], email: userwidgets.Email): Scoped {
-		const result = times
-			.filter(time => time.email == email)
-			.reduce<Scoped>(
-				(result, time) =>
-					Scope.insert<Scoped>(
-						result,
-						map.scope[time.type]((result[time.organization]?.[time.type] ?? {}) as any, time as any),
-						[time.organization, time.type]
-					),
-				{}
-			)
+	export function scope(times: Changeable[]): Scoped {
+		const result = times.reduce<Scoped>(
+			(result, time) =>
+				Scope.insert<Scoped>(
+					result,
+					map.scope[time.type]((result[time.organization]?.[time.type] ?? {}) as any, time as any),
+					[time.organization, time.email, time.type]
+				),
+			{}
+		)
 		return result
 	}
-	export function row(times: Scoped): Record<isoly.Date, Changeable>[]
-	export function row(times: Changeable[], email: userwidgets.Email): Record<isoly.Date, Changeable>[]
-	export function row(times: Scoped | Changeable[], email?: userwidgets.Email): Record<isoly.Date, Changeable>[] {
-		const scoped = !Array.isArray(times) ? times : !email ? {} : scope(times, email)
+	export function row(times: Scoped | Changeable[]): Record<isoly.Date, Changeable>[] {
+		const scoped = !Array.isArray(times) ? times : scope(times)
 		return Object.entries(scoped).flatMap(([, scoped]) =>
-			Object.entries(scoped).flatMap<Record<isoly.Date, Changeable>>(([type, scoped]) =>
-				(map.row[type as Type] as (scoped: any) => ReturnType<typeof map.row[Type]>)(scoped)
+			Object.entries(scoped).flatMap(([, scoped]) =>
+				Object.entries(scoped).flatMap<Record<isoly.Date, Changeable>>(([type, scoped]) =>
+					(map.row[type as Type] as (scoped: any) => ReturnType<typeof map.row[Type]>)(scoped)
+				)
 			)
 		)
+	}
+	export function fromScope(scoped: Scoped): Changeable[] {
+		return Object.entries(scoped).reduce<Changeable[]>((result, [organization, scoped]) => {
+			return result.concat(
+				Object.entries(scoped).reduce<Changeable[]>(
+					(result, [type, scoped]) =>
+						result.concat(
+							(map.fromScope[type as Type] as (scoped: any) => ReturnType<typeof map.fromScope[Type]>)(scoped)
+						),
+					result
+				)
+			)
+		}, [])
 	}
 	const map = {
 		scope: {
@@ -69,6 +83,13 @@ export namespace Changeable {
 			vacation: Vacation.scope,
 			work: Work.scope,
 		},
+		fromScope: {
+			sick: Sick.fromScope,
+			unpaid: Unpaid.fromScope,
+			vab: Vab.fromScope,
+			vacation: Vacation.fromScope,
+			work: Work.fromScope,
+		},
 		row: {
 			sick: Sick.row,
 			unpaid: Unpaid.row,
@@ -76,5 +97,21 @@ export namespace Changeable {
 			vacation: Vacation.row,
 			work: Work.row,
 		},
+	}
+	export function key(
+		time: Partial<DistributiveOmit<Changeable, "value">>,
+		options?: Parameters<typeof Base.key>[1]
+	): string {
+		return time.type == "sick"
+			? Sick.key(time, options)
+			: time.type == "unpaid"
+			? Unpaid.key(time, options)
+			: time.type == "vab"
+			? Vab.key(time, options)
+			: time.type == "vacation"
+			? Vacation.key(time, options)
+			: time.type == "work"
+			? Work.key(time, options)
+			: Base.key(time, options)
 	}
 }

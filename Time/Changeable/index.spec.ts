@@ -16,7 +16,7 @@ describe("Time.Changeable", () => {
 		const now = isoly.Date.now()
 		const organization = "------o1"
 		const times = fixtures.create(21)
-		const scoped = weekmeter.Time.scope(times, "jessie@rocket.com")
+		const scoped = weekmeter.Time.scope(times)
 		expect(times.find(time => time == scoped[organization]?.sick?.[now])).toBeTruthy()
 		expect(times.find(time => time == scoped[organization]?.unpaid?.[now])).toBeTruthy()
 		expect(times.find(time => time == scoped[organization]?.vab?.[now])).toBeTruthy()
@@ -29,9 +29,9 @@ describe("Time.Changeable", () => {
 	it("row", () => {
 		const now = isoly.Date.now()
 		const times = fixtures.create(5)
-		const scoped = weekmeter.Time.scope(times, "jessie@rocket.com")
+		const scoped = weekmeter.Time.scope(times)
 		const rows = weekmeter.Time.row(scoped)
-		expect(weekmeter.Time.row(times, "jessie@rocket.com")).toEqual(rows)
+		expect(weekmeter.Time.row(times)).toEqual(rows)
 		rows.forEach((row, index) => expect(row[isoly.Date.next(now, Math.trunc(index / 5))]).toBeTruthy())
 	})
 })

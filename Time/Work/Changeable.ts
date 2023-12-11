@@ -28,14 +28,25 @@ export namespace Changeable {
 	})
 	export const is = type.is
 	export const flaw = type.flaw
-	export function key(time: Omit<Changeable, "value">): string {
-		return `${Base.key(time)}|${time.client}|${time.project}|${time.activity}`
+	export function key(time: Partial<Omit<Changeable, "value">>, options?: Parameters<typeof Base.key>[1]): string {
+		return [
+			Base.key(time, { date: false }),
+			time.client,
+			time.project,
+			time.activity,
+			...(options?.date != false ? [time.date] : []),
+		]
+			.filter(Boolean)
+			.join("|")
 	}
 	export function scope(target: Scoped, time: Changeable): Scoped {
 		return Object.assign(
 			target,
 			Scope.insert<Changeable>(target, time, [time.client, time.project, time.activity, time.date])
 		)
+	}
+	export function fromScope<T extends Changeable>(scoped: Scoped<T>): T[] {
+		return Scope.flat.constant<T>(scoped, 4)
 	}
 	export function row<T extends Changeable>(times: Scoped<T>): Record<isoly.Date, T>[] {
 		return Object.entries(times).flatMap(([, times]) =>

@@ -12,5 +12,6 @@ export namespace Vab {
 	export const flaw = type.flaw
 	export const key = Changeable.key
 	export const scope = Changeable.scope
+	export const fromScope = Changeable.fromScope
 	export const row = Changeable.row
 }

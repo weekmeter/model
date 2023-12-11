@@ -13,15 +13,6 @@ export namespace Activity {
 	export const type: isly.object.ExtendableType<Activity> = Creatable.type.extend<Activity>({
 		modified: Modified.type,
 	})
-	export type Scoped = Record<Code, Record<Code, Record<Code, Record<Code, Activity>>>>
-	export namespace Scoped {
-		export const type = isly.record<Scoped>(
-			Code.type,
-			isly.record(Code.type, isly.record(Code.type, isly.record(Code.type, Activity.type)))
-		)
-		export const is = type.is
-		export const flaw = type.flaw
-	}
 	export const is = type.is
 	export const flaw = type.flaw
 	export const key = Creatable.key

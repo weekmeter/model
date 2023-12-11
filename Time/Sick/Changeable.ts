@@ -14,10 +14,13 @@ export namespace Changeable {
 	})
 	export const is = type.is
 	export const flaw = type.flaw
-	export function key(time: Omit<Changeable, "value">): string {
-		return Base.key(time)
+	export function key(time: Partial<Omit<Changeable, "value">>, options?: Parameters<typeof Base.key>[1]): string {
+		return Base.key(time, options)
 	}
 	export const scope = Base.scope
+	export function fromScope(scoped: Scoped): Changeable[] {
+		return Base.fromScope<Changeable>(scoped)
+	}
 	export function row<T extends Changeable>(times: Scoped<T>): Record<isoly.Date, T>[] {
 		return [times]
 	}
