@@ -41,7 +41,9 @@
 	"typescript.format.enable": false,
 	"cSpell.words": [
 		"authly",
+		"Changeables",
 		"cloudly",
+		"Creatables",
 		"cryptly",
 		"flagly",
 		"gracely",
@@ -56,8 +58,10 @@
 		"smoothly",
 		"tidily",
 		"transactly",
+		"Unpaids",
 		"uply",
 		"userwidgets",
+		"Vabs",
 		"weekmeter"
 	]
 }
