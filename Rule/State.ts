@@ -16,7 +16,7 @@ export namespace State {
 		year: isly.string(/\d+/),
 		month: isly.array(isly.string(/\d+/)),
 		week: isly.array(isly.string(/\d+/)),
-		day: isly.array(isly.string(/\d+/)),
+		day: isly.array(isly.string(/.+/)),
 		user: userwidgets.Email.type,
 	})
 	export const is = type.is

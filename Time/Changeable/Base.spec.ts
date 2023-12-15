@@ -22,12 +22,13 @@ describe("Time.Changeable.Base", () => {
 		expect(weekmeter.Time.Changeable.Base.type.get(time)).toEqual(base)
 	})
 	it("key with date", () => {
+		const now = isoly.Date.now()
 		const [sick, unpaid, vab, vacation, work] = fixtures.create(1).map(time => weekmeter.Time.Changeable.Base.key(time))
-		expect(sick).toEqual("sick|------o1|jessie@rocket.com|2023-12-11")
-		expect(unpaid).toEqual("unpaid|------o1|jessie@rocket.com|2023-12-11")
-		expect(vab).toEqual("vab|------o1|jessie@rocket.com|2023-12-11")
-		expect(vacation).toEqual("vacation|------o1|jessie@rocket.com|2023-12-11")
-		expect(work).toEqual("work|------o1|jessie@rocket.com|2023-12-11")
+		expect(sick).toEqual(`sick|------o1|jessie@rocket.com|${now}`)
+		expect(unpaid).toEqual(`unpaid|------o1|jessie@rocket.com|${now}`)
+		expect(vab).toEqual(`vab|------o1|jessie@rocket.com|${now}`)
+		expect(vacation).toEqual(`vacation|------o1|jessie@rocket.com|${now}`)
+		expect(work).toEqual(`work|------o1|jessie@rocket.com|${now}`)
 	})
 	it("key no date", () => {
 		const [sick, unpaid, vab, vacation, work] = fixtures

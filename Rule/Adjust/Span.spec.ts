@@ -5,7 +5,7 @@ import { Percentage } from "./Percentage"
 import { Span } from "./Span"
 
 describe("Rule.Adjust.Span", () => {
-	const { criteria } = Criteria.parse("weekDay:Wednesday")
+	const { criteria } = Criteria.parse("day:Wednesday")
 	it("is", () => {
 		const span = new Span(criteria, { hours: 8 })
 		expect(Span.is(span)).toEqual(true)
@@ -38,17 +38,11 @@ describe("Rule.Adjust.Span", () => {
 		expect(new Span(criteria, { hours: 0 }).evaluate(thursday, time)).not.toBe(time)
 	})
 	it("toString", () => {
-		expect(weekmeter.Rule.parse("adjust 8h weekDay:Wednesday")?.toString()).toEqual("adjust 8:00h weekDay:Wednesday")
-		expect(weekmeter.Rule.parse("adjust 8:3h weekDay:Wednesday")?.toString()).toEqual("adjust 8:03h weekDay:Wednesday")
-		expect(weekmeter.Rule.parse("adjust 8:30h weekDay:Wednesday")?.toString()).toEqual("adjust 8:30h weekDay:Wednesday")
-		expect(weekmeter.Rule.parse("adjust 8:300h weekDay:Wednesday")?.toString()).toEqual(
-			"adjust 8:300h weekDay:Wednesday"
-		)
-		expect(weekmeter.Rule.parse("adjust 10:30h weekDay:Wednesday")?.toString()).toEqual(
-			"adjust 10:30h weekDay:Wednesday"
-		)
-		expect(weekmeter.Rule.parse("adjust 100:30h weekDay:Wednesday")?.toString()).toEqual(
-			"adjust 100:30h weekDay:Wednesday"
-		)
+		expect(weekmeter.Rule.parse("adjust 8h day:Wednesday")?.toString()).toEqual("adjust 8:00h day:Wednesday")
+		expect(weekmeter.Rule.parse("adjust 8:3h day:Wednesday")?.toString()).toEqual("adjust 8:03h day:Wednesday")
+		expect(weekmeter.Rule.parse("adjust 8:30h day:Wednesday")?.toString()).toEqual("adjust 8:30h day:Wednesday")
+		expect(weekmeter.Rule.parse("adjust 8:300h day:Wednesday")?.toString()).toEqual("adjust 8:300h day:Wednesday")
+		expect(weekmeter.Rule.parse("adjust 10:30h day:Wednesday")?.toString()).toEqual("adjust 10:30h day:Wednesday")
+		expect(weekmeter.Rule.parse("adjust 100:30h day:Wednesday")?.toString()).toEqual("adjust 100:30h day:Wednesday")
 	})
 })
