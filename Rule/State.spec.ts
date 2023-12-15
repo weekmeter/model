@@ -6,22 +6,20 @@ describe("Rule.State", () => {
 		const state: State = {
 			date: "2023-01-01",
 			year: "2023",
-			month: "1",
-			day: "1",
-			week: "52",
-			weekDay: "Sunday",
+			month: ["1", "01"],
+			day: ["1", "01", "Sunday"],
+			week: ["52", "52"],
 			user: "jessie@rocket.com",
 		}
-		expect(State.is(state))
+		expect(State.is(state)).toEqual(true)
 	})
 	it("create", () => {
 		expect(State.create("2023-01-01", "jessie@rocket.com")).toEqual({
 			date: "2023-01-01",
 			year: "2023",
-			month: "1",
-			day: "1",
-			week: "52",
-			weekDay: "Sunday",
+			month: ["1", "01"],
+			day: ["1", "01", "Sunday"],
+			week: ["52", "52"],
 			user: "jessie@rocket.com",
 		})
 	})

@@ -14,10 +14,10 @@ describe("Rule", () => {
 		rules.forEach(rule => expect(weekmeter.Rule.is((({ name, ...rule }) => rule)(rule))).toEqual(false))
 	})
 	it("parse", () => {
-		const span = weekmeter.Rule.parse("adjust 8h weekDay:Wednesday")
-		const percentage = weekmeter.Rule.parse("adjust 80% weekDay:Wednesday")
-		const set = weekmeter.Rule.parse("set 8h weekDay:Wednesday")
-		const notSupported = weekmeter.Rule.parse("set 80% weekDay:Wednesday")
+		const span = weekmeter.Rule.parse("adjust 8h day:Wednesday")
+		const percentage = weekmeter.Rule.parse("adjust 80% day:Wednesday")
+		const set = weekmeter.Rule.parse("set 8h day:Wednesday")
+		const notSupported = weekmeter.Rule.parse("set 80% day:Wednesday")
 		expect(Adjust.is(span)).toEqual(true)
 		expect(Adjust.is(percentage)).toEqual(true)
 		expect(Span.is(span)).toEqual(true)
@@ -56,5 +56,20 @@ describe("Rule", () => {
 		]
 		const result = weekmeter.Rule.expected("jessie@rocket.com", { start: "2023-04-03", end: "2023-04-09" }, rules)
 		expect(isoly.TimeSpan.toHours(result ?? {})).toBeCloseTo(22.4)
+	})
+	it("numbered, 0-padded and named weekday", () => {
+		const rules = [...fixtures.getRuleArray("8h"), "set 0h day:04 day:4 day:Tuesday"]
+		const result = weekmeter.Rule.expected("jessie@rocket.com", { start: "2023-04-03", end: "2023-04-05" }, rules)
+		expect(isoly.TimeSpan.toHours(result ?? {})).toBeCloseTo(16)
+	})
+	it("numbered and 0-padded month", () => {
+		const rules = [...fixtures.getRuleArray("8h"), "set 0h month:4 month:4"]
+		const result = weekmeter.Rule.expected("jessie@rocket.com", { start: "2023-04-03", end: "2023-04-05" }, rules)
+		expect(isoly.TimeSpan.toHours(result ?? {})).toBeCloseTo(0)
+	})
+	it("numbered and 0-padded week", () => {
+		const rules = [...fixtures.getRuleArray("8h"), "set 0h week:04 week:4"]
+		const result = weekmeter.Rule.expected("jessie@rocket.com", { start: "2023-01-25", end: "2023-01-27" }, rules)
+		expect(isoly.TimeSpan.toHours(result ?? {})).toBeCloseTo(0)
 	})
 })
