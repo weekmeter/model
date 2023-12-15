@@ -93,11 +93,11 @@ export function getProjects(n: number): weekmeter.Project[] {
 export const getRuleArray = Object.assign(createRuleArray, {})
 function createRuleArray(time = "8h"): weekmeter.Rule[] {
 	return [
-		{ name: "Monday", value: `set ${time} weekDay:Monday` },
-		{ name: "Tuesday", value: `set ${time} weekDay:Tuesday` },
-		{ name: "Wednesday", value: `set ${time} weekDay:Wednesday` },
-		{ name: "Thursday", value: `set ${time} weekDay:Thursday` },
-		{ name: "Friday", value: `set ${time} weekDay:Friday` },
+		{ name: "Monday", value: `set ${time} day:Monday` },
+		{ name: "Tuesday", value: `set ${time} day:Tuesday` },
+		{ name: "Wednesday", value: `set ${time} day:Wednesday` },
+		{ name: "Thursday", value: `set ${time} day:Thursday` },
+		{ name: "Friday", value: `set ${time} day:Friday` },
 	]
 }
 export const getRules = Object.assign(createRules, { changeable: createRulesChangeable })
