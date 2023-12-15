@@ -60,19 +60,16 @@ describe("Rule", () => {
 	it("numbered, 0-padded and named weekday", () => {
 		const rules = [...fixtures.getRuleArray("8h"), "set 0h day:04 day:4 day:Tuesday"]
 		const result = weekmeter.Rule.expected("jessie@rocket.com", { start: "2023-04-03", end: "2023-04-05" }, rules)
-		console.log(result)
 		expect(isoly.TimeSpan.toHours(result ?? {})).toBeCloseTo(16)
 	})
 	it("numbered and 0-padded month", () => {
 		const rules = [...fixtures.getRuleArray("8h"), "set 0h month:4 month:4"]
 		const result = weekmeter.Rule.expected("jessie@rocket.com", { start: "2023-04-03", end: "2023-04-05" }, rules)
-		console.log(result)
 		expect(isoly.TimeSpan.toHours(result ?? {})).toBeCloseTo(0)
 	})
 	it("numbered and 0-padded week", () => {
 		const rules = [...fixtures.getRuleArray("8h"), "set 0h week:04 week:4"]
 		const result = weekmeter.Rule.expected("jessie@rocket.com", { start: "2023-01-25", end: "2023-01-27" }, rules)
-		console.log(result)
 		expect(isoly.TimeSpan.toHours(result ?? {})).toBeCloseTo(0)
 	})
 })
