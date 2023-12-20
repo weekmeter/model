@@ -9,3 +9,4 @@ describe("Time", () => {
 		times.forEach(time => expect(weekmeter.Time.type.get({ ...time, garbage: true })).toEqual(time))
 	})
 })
+
