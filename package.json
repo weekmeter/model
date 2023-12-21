@@ -56,6 +56,7 @@
 		"@types/jest": "^29.5.8",
 		"@typescript-eslint/eslint-plugin": "6.11.0",
 		"@typescript-eslint/parser": "6.11.0",
+		"authly": "^3.0.11",
 		"eslint": "^8.53.0",
 		"eslint-plugin-prettierx": "github:utily/eslint-plugin-prettierx#utily-20231004",
 		"eslint-plugin-simple-import-sort": "^10.0.0",
@@ -67,7 +68,6 @@
 	},
 	"dependencies": {
 		"@userwidgets/model": "^0.8.12",
-		"authly": "^3.0.11",
 		"isly": "^0.1.12",
 		"isoly": "^2.3.1",
 		"selectively": "^2.0.9"
