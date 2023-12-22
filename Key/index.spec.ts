@@ -37,6 +37,8 @@ describe("Key", () => {
 				project: { view: true, create: true },
 				activity: { view: true, create: true },
 				time: { view: true, admin: true },
+				balance: { view: true },
+				rules: { view: true, admin: true },
 				report: { view: true, create: true, admin: true },
 			},
 		})
@@ -70,6 +72,7 @@ describe("Key", () => {
 				client: { view: true, create: true },
 				project: { view: true, create: true },
 				activity: { view: true, create: true },
+				rules: { view: true },
 				time: { view: true },
 				report: { view: true },
 			},
@@ -105,6 +108,8 @@ describe("Key", () => {
 				project: { view: true },
 				activity: { view: true },
 				time: { view: true },
+				balance: { view: true },
+				rules: { view: true, admin: true },
 				report: { view: true, create: true },
 			},
 		})
