@@ -5,7 +5,7 @@ import { Vab as TypeVab } from "./Vab"
 import { Vacation as TypeVacation } from "./Vacation"
 import { Work as TypeWork } from "./Work"
 
-export type Type = Type.Sick | Type.Unpaid | Type.Vab | Type.Vab | Type.Vacation | Type.Work
+export type Type = Type.Sick | Type.Unpaid | Type.Vab | Type.Vacation | Type.Work
 
 export namespace Type {
 	export type Sick = TypeSick

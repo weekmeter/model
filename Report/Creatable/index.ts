@@ -1,4 +1,4 @@
-import { Salary as CreatableSalary } from "../Salary"
+import { Salary as CreatableSalary } from "./Salary"
 
 export type Creatable = Creatable.Salary
 export namespace Creatable {

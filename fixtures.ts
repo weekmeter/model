@@ -1,19 +1,14 @@
 import { weekmeter } from "./index"
+import * as modified from "./Modified/fixtures"
+import * as report from "./Report/fixtures"
 import * as time from "./Time/fixtures"
 
 export function getCode(): weekmeter.Code {
 	return "_-0code0-_"
 }
-
-export const getModified = Object.assign(createModified)
-function createModified(): weekmeter.Modified {
-	return {
-		value: "2020-12-31T23:59:59.000Z",
-		by: "test-testson@test.com",
-	}
-}
+export const getModified = modified.create
 export const getTime = time.create
-
+export const getReport = report.create
 export const getActivity = Object.assign(createActivity, { creatable: createActivityCreatable })
 function createActivity(): weekmeter.Activity {
 	return {
