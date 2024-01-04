@@ -9,6 +9,7 @@ describe("Report.Salary", () => {
 	it("generate", () => {
 		const times = fixtures.getTime(5)
 		const report = weekmeter.Report.Salary.generate(times)
+		expect(report.total).toEqual({ hours: 200 })
 		expect(report.sick.times.length).toEqual(5)
 		expect(report.unpaid.times.length).toEqual(5)
 		expect(report.vab.times.length).toEqual(5)
