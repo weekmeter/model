@@ -61,13 +61,4 @@ export namespace Time {
 	export const is = type.is
 	export const flaw = type.flaw
 	export const key = Changeable.key
-	export function group(times: Time[]): { [type in Type]: (Time & { type: type })[] } {
-		return {
-			[Type.Sick.value]: times.filter(Sick.is),
-			[Type.Unpaid.value]: times.filter(Unpaid.is),
-			[Type.Vab.value]: times.filter(Vab.is),
-			[Type.Vacation.value]: times.filter(Vacation.is),
-			[Type.Work.value]: times.filter(Work.is),
-		}
-	}
 }
