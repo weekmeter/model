@@ -4,11 +4,11 @@ import { Base } from "../Changeable/Base"
 import { Type } from "../Type"
 
 export interface Changeable extends Base {
-	type: Type.Vab
+	type: Type.Parental
 }
 export namespace Changeable {
 	export const type = Base.type.extend<Changeable>({
-		type: Type.Vab.type,
+		type: Type.Parental.type,
 	})
 	export const is = type.is
 	export const flaw = type.flaw

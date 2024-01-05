@@ -1,14 +1,14 @@
 import { isly } from "isly"
 import { Base as TimeBase } from "./Base"
 import { Changeable as TimeChangeable } from "./Changeable"
+import { Parental as TimeParental } from "./Parental"
 import { Sick as TimeSick } from "./Sick"
 import { Type as TimeType } from "./Type"
 import { Unpaid as TimeUnpaid } from "./Unpaid"
-import { Vab as TimeVab } from "./Vab"
 import { Vacation as TimeVacation } from "./Vacation"
 import { Work as TimeWork } from "./Work"
 
-export type Time = Time.Sick | Time.Unpaid | Time.Vab | Time.Vacation | Time.Work
+export type Time = Time.Sick | Time.Unpaid | Time.Parental | Time.Vacation | Time.Work
 export namespace Time {
 	export type Base = TimeBase
 	export const Base = TimeBase
@@ -17,7 +17,7 @@ export namespace Time {
 	export namespace Type {
 		export type Sick = TimeType.Sick
 		export type Unpaid = TimeType.Unpaid
-		export type Vab = TimeType.Vab
+		export type Parental = TimeType.Parental
 		export type Vacation = TimeType.Vacation
 		export type Work = TimeType.Work
 	}
@@ -36,10 +36,10 @@ export namespace Time {
 	export namespace Unpaid {
 		export type Changeable = TimeUnpaid.Changeable
 	}
-	export type Vab = TimeVab
-	export const Vab = TimeVab
-	export namespace Vab {
-		export type Changeable = TimeVab.Changeable
+	export type Parental = TimeParental
+	export const Parental = TimeParental
+	export namespace Parental {
+		export type Changeable = TimeParental.Changeable
 	}
 	export type Vacation = TimeVacation
 	export const Vacation = TimeVacation
@@ -51,10 +51,10 @@ export namespace Time {
 	export namespace Work {
 		export type Changeable = TimeWork.Changeable
 	}
-	export const type = isly.union<Time, Sick, Unpaid, Vab, Vacation, Work>(
+	export const type = isly.union<Time, Sick, Unpaid, Parental, Vacation, Work>(
 		Sick.type,
 		Unpaid.type,
-		Vab.type,
+		Parental.type,
 		Vacation.type,
 		Work.type
 	)

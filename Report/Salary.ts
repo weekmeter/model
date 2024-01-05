@@ -37,7 +37,7 @@ export namespace Salary {
 		balance: isly.fromIs("isoly.TimeSpan", isoly.TimeSpan.is),
 		sick: Times.type.create(Time.Sick.type),
 		unpaid: Times.type.create(Time.Unpaid.type),
-		vab: Times.type.create(Time.Vab.type),
+		parental: Times.type.create(Time.Parental.type),
 		vacation: Times.type.create(Time.Vacation.type),
 		work: isly.object({
 			total: isly.fromIs("isoly.TimeSpan", isoly.TimeSpan.is),
@@ -57,10 +57,10 @@ export namespace Salary {
 				total: isoly.TimeSpan.add(...times.map(time => time.value)),
 				times: times,
 			}))(times.filter(Time.Unpaid.is)),
-			[Time.Type.Vab.value]: ((times: Time.Vab[]) => ({
+			[Time.Type.Parental.value]: ((times: Time.Parental[]) => ({
 				total: isoly.TimeSpan.add(...times.map(time => time.value)),
 				times: times,
-			}))(times.filter(Time.Vab.is)),
+			}))(times.filter(Time.Parental.is)),
 			[Time.Type.Vacation.value]: ((times: Time.Vacation[]) => ({
 				total: isoly.TimeSpan.add(...times.map(time => time.value)),
 				times: times,
