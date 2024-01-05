@@ -12,8 +12,8 @@ describe("Rule.Adjust.Percentage", () => {
 		expect(Span.is(percentage)).toEqual(false)
 	})
 	it("evaluate", () => {
-		const wednesday = State.create("2023-11-08", "jessie@rocket.com")
-		const thursday = State.create("2023-11-09", "jessie@rocket.com")
+		const wednesday = State.create("2023-11-08", { email: "jessie@rocket.com" })
+		const thursday = State.create("2023-11-09", { email: "jessie@rocket.com" })
 		const time = { hours: 8 }
 		expect(new Percentage(criteria, 1).evaluate(wednesday, time)).toEqual(time)
 		expect(new Percentage(criteria, 0.8).evaluate(wednesday, { hours: 10 })).toEqual({ hours: 8 })

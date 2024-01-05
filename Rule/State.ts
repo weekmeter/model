@@ -8,7 +8,7 @@ export interface State {
 	month: string[]
 	week: string[]
 	day: string[]
-	user: string
+	user: { email: string }
 }
 export namespace State {
 	export const type = isly.object<State>({
@@ -17,11 +17,13 @@ export namespace State {
 		month: isly.array(isly.string(/\d+/)),
 		week: isly.array(isly.string(/\d+/)),
 		day: isly.array(isly.string(/.+/)),
-		user: userwidgets.Email.type,
+		user: isly.object({
+			email: userwidgets.Email.type,
+		}),
 	})
 	export const is = type.is
 	export const flaw = type.flaw
-	export function create(date: isoly.Date, user: userwidgets.Email): State {
+	export function create(date: isoly.Date, user: { email: userwidgets.Email }): State {
 		return {
 			date,
 			year: isoly.Date.getYear(date).toString(10),
