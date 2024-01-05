@@ -21,7 +21,6 @@ export type Salary = { [type in Time.Type]: Times<Time & { type: type }> } & {
 	total: isoly.TimeSpan
 	dates: isoly.DateRange
 	balance: isoly.TimeSpan
-	// work: { total: isoly.TimeSpan; clients: Record<Code, Times<Time.Work>> }
 } & Base &
 	Omit<Salary.Creatable, "date">
 export namespace Salary {
