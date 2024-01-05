@@ -68,7 +68,7 @@ describe("Rule", () => {
 			...fixtures.getRuleArray("8h"),
 			"adjust 50% date:2023-04-06",
 			"set 0h date:2023-04-07",
-			"adjust 80% user:jessie@rocket*",
+			"adjust 80% user.email:jessie@rocket*",
 		]
 		const result = weekmeter.Rule.expected(
 			{ email: "jessie@rocket.com" },
