@@ -33,17 +33,17 @@ export namespace Rule {
 			: Adjust.create(criteria, time)
 	}
 	export function expected(
-		user: userwidgets.Email,
+		user: { email: userwidgets.Email },
 		dates: isoly.Date[] | isoly.DateRange,
 		rules: Base[]
 	): isoly.TimeSpan
 	export function expected(
-		user: userwidgets.Email,
+		user: { email: userwidgets.Email },
 		dates: isoly.Date[] | isoly.DateRange,
 		rules: (Rule | string | Base)[]
 	): isoly.TimeSpan | undefined
 	export function expected(
-		user: userwidgets.Email,
+		user: { email: userwidgets.Email },
 		dates: isoly.Date[] | isoly.DateRange,
 		raw: Base[]
 	): isoly.TimeSpan | undefined {
