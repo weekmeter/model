@@ -10,20 +10,20 @@ describe("Time.Changeable", () => {
 	})
 	it("key with date", () => {
 		const now = isoly.Date.now()
-		const [sick, unpaid, vab, vacation, work] = fixtures.create(1).map(time => weekmeter.Time.Changeable.key(time))
+		const [sick, unpaid, parental, vacation, work] = fixtures.create(1).map(time => weekmeter.Time.Changeable.key(time))
 		expect(sick).toEqual(`sick|------o1|jessie@rocket.com|${now}`)
 		expect(unpaid).toEqual(`unpaid|------o1|jessie@rocket.com|${now}`)
-		expect(vab).toEqual(`vab|------o1|jessie@rocket.com|${now}`)
+		expect(parental).toEqual(`parental|------o1|jessie@rocket.com|${now}`)
 		expect(vacation).toEqual(`vacation|------o1|jessie@rocket.com|${now}`)
 		expect(work).toEqual(`work|------o1|jessie@rocket.com|------c1|------p1|------a1|${now}`)
 	})
 	it("key no date", () => {
-		const [sick, unpaid, vab, vacation, work] = fixtures
+		const [sick, unpaid, parental, vacation, work] = fixtures
 			.create(1)
 			.map(time => weekmeter.Time.Changeable.key(time, { date: false }))
 		expect(sick).toEqual("sick|------o1|jessie@rocket.com")
 		expect(unpaid).toEqual("unpaid|------o1|jessie@rocket.com")
-		expect(vab).toEqual("vab|------o1|jessie@rocket.com")
+		expect(parental).toEqual("parental|------o1|jessie@rocket.com")
 		expect(vacation).toEqual("vacation|------o1|jessie@rocket.com")
 		expect(work).toEqual("work|------o1|jessie@rocket.com|------c1|------p1|------a1")
 	})

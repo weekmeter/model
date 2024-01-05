@@ -1,19 +1,19 @@
 import { isoly } from "isoly"
 import * as fixtures from "../Changeable/fixtures"
 import type { Changeable } from "./Changeable"
-import type { Vab } from "./index"
+import type { Parental } from "./index"
 export const create = Object.assign(createVabs, { changeable: createVabChangeables })
 
 function createVabChangeables(n: number = 1): Changeable[] {
-	return fixtures.create("vab", n).map<Changeable>((time, index) => ({
+	return fixtures.create("parental", n).map<Changeable>((time, index) => ({
 		...time,
-		type: "vab",
+		type: "parental",
 	}))
 }
-function createVabs(n: number = 1): Vab[] {
-	return createVabChangeables(n).map<Vab>(time => ({
+function createVabs(n: number = 1): Parental[] {
+	return createVabChangeables(n).map<Parental>(time => ({
 		...time,
-		type: "vab",
+		type: "parental",
 		modified: { by: time.email, value: isoly.DateTime.now() },
 	}))
 }
