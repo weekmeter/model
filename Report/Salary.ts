@@ -1,7 +1,6 @@
 import { isoly } from "isoly"
 import { userwidgets } from "@userwidgets/model"
 import { isly } from "isly"
-import { Code } from "../Code"
 import { Time } from "../Time"
 import { Base } from "./Base"
 import { Salary as SalaryCreatable } from "./Creatable/Salary"
@@ -18,11 +17,11 @@ namespace Times {
 	}
 }
 
-export type Salary = { [type in Exclude<Time.Type, "work">]: Times<Time & { type: type }> } & {
+export type Salary = { [type in Time.Type]: Times<Time & { type: type }> } & {
 	total: isoly.TimeSpan
 	dates: isoly.DateRange
 	balance: isoly.TimeSpan
-	work: { total: isoly.TimeSpan; clients: Record<Code, Times<Time.Work>> }
+	// work: { total: isoly.TimeSpan; clients: Record<Code, Times<Time.Work>> }
 } & Base &
 	Omit<Salary.Creatable, "date">
 export namespace Salary {
@@ -39,10 +38,7 @@ export namespace Salary {
 		unpaid: Times.type.create(Time.Unpaid.type),
 		parental: Times.type.create(Time.Parental.type),
 		vacation: Times.type.create(Time.Vacation.type),
-		work: isly.object({
-			total: isly.fromIs("isoly.TimeSpan", isoly.TimeSpan.is),
-			clients: isly.record<Code, Times<Time.Work>>(Code.type, Times.type.create(Time.Work.type)),
-		}),
+		work: Times.type.create(Time.Work.type),
 	})
 	export const is = type.is
 	export const flaw = type.flaw
@@ -67,16 +63,7 @@ export namespace Salary {
 			}))(times.filter(Time.Vacation.is)),
 			[Time.Type.Work.value]: ((times: Time.Work[]) => ({
 				total: isoly.TimeSpan.add(...times.map(time => time.value)),
-				clients: times.reduce<ReturnType<typeof generate>["work"]["clients"]>(
-					(result, time) =>
-						Object.assign(result, {
-							[time.client]: {
-								total: isoly.TimeSpan.add(result[time.client]?.total ?? {}, time.value),
-								times: [...(result[time.client]?.times ?? []), time],
-							},
-						}),
-					{}
-				),
+				times: times,
 			}))(times.filter(Time.Work.is)),
 		}
 	}
