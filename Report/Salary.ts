@@ -41,9 +41,13 @@ export namespace Salary {
 	})
 	export const is = type.is
 	export const flaw = type.flaw
-	export function generate(times: Time[]): Pick<Salary, Time.Type | "total"> {
+	export function generate(
+		times: Time[],
+		options?: { adjustment?: isoly.TimeSpan }
+	): Pick<Salary, Time.Type | "total" | "adjustment"> {
 		return {
-			total: isoly.TimeSpan.add(...times.map(time => time.value)),
+			...(options?.adjustment && { adjustment: options.adjustment }),
+			total: isoly.TimeSpan.add(...times.map(time => time.value), options?.adjustment ?? {}),
 			[Time.Type.Sick.value]: ((times: Time.Sick[]) => ({
 				total: isoly.TimeSpan.add(...times.map(time => time.value)),
 				times: times,
