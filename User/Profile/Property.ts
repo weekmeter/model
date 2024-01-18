@@ -10,4 +10,14 @@ export namespace Property {
 	export const type = isly.object<Property>({ name: isly.string(pattern), value: isly.string(pattern) })
 	export const is = type.is
 	export const flaw = type.flaw
+
+	export function record(properties: Property[]): Record<string, string> {
+		return properties.reduce(
+			(properties: Record<string, string>, property) => ({
+				...properties,
+				[property.name]: property.value,
+			}),
+			{}
+		)
+	}
 }
