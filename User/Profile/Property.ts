@@ -6,7 +6,8 @@ export interface Property {
 }
 
 export namespace Property {
-	export const type = isly.object<Property>({ name: isly.string(/^.+$/), value: isly.string(/^.+$/) })
+	const pattern = /^[^.\s*!]+$/
+	export const type = isly.object<Property>({ name: isly.string(pattern), value: isly.string(pattern) })
 	export const is = type.is
 	export const flaw = type.flaw
 }
