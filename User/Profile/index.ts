@@ -19,6 +19,7 @@ export namespace Profile {
 
 	export const type = Changeable.type.extend<Profile>({
 		email: userwidgets.Email.type,
+		properties: isly.array(Property.type),
 		modified: Modified.type,
 	})
 	export const is = type.is

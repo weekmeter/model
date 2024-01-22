@@ -2,6 +2,7 @@ import { weekmeter } from "./index"
 import * as modified from "./Modified/fixtures"
 import * as report from "./Report/fixtures"
 import * as time from "./Time/fixtures"
+import * as profile from "./User/Profile/fixtures"
 
 export function getCode(): weekmeter.Code {
 	return "_-0code0-_"
@@ -116,3 +117,4 @@ function createRulesChangeable(time = "8h"): Required<weekmeter.Rules.Changeable
 		},
 	}
 }
+export const getProfile = profile.create

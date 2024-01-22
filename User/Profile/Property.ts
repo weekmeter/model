@@ -11,7 +11,7 @@ export namespace Property {
 	export const is = type.is
 	export const flaw = type.flaw
 
-	export function record(properties: Property[]): Record<string, string> {
+	export function record(properties: Property[]): Record<string, string | undefined> {
 		return properties.reduce(
 			(properties: Record<string, string>, property) => ({
 				...properties,
