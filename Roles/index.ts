@@ -9,8 +9,8 @@ export namespace Roles {
 		export type Weekmeter = RolesPermissions.Weekmeter
 	}
 	export const record = {
-		admin: [...Permissions.flags],
-		manager: [...userwidgets.User.Permissions.Organization.flags, ...Permissions.Weekmeter.flags],
+		admin: [...new Set([...Permissions.flags])],
+		manager: [...new Set([...userwidgets.User.Permissions.Organization.flags, ...Permissions.Weekmeter.flags])],
 		projectManager: [
 			"user.view",
 			"user.invite",
@@ -36,8 +36,9 @@ export namespace Roles {
 			"rules.admin",
 			"report.view",
 			"report.create",
+			"report.admin",
 		],
-		user: ["user.view", "client.view", "project.view", "activity.view"],
+		user: ["user.view"],
 	} as const
 	export const roles = Object.keys(record)
 	export const satisfies = Object.assign(satisfiesRole, { some: satisfiesSome, every: satisfiesEvery })
