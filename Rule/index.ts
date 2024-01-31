@@ -1,5 +1,4 @@
 import { isoly } from "isoly"
-import { userwidgets } from "@userwidgets/model"
 import { isly } from "isly"
 import { Profile } from "../User/Profile"
 import { Action } from "./Action"
@@ -35,17 +34,17 @@ export namespace Rule {
 	}
 
 	export function expected(
-		user: { email: userwidgets.Email; properties?: Profile.Property[] },
+		user: Pick<Profile, "email" | "properties">,
 		dates: isoly.Date[] | isoly.DateRange,
 		rules: Base[]
 	): isoly.TimeSpan
 	export function expected(
-		user: { email: userwidgets.Email; properties?: Profile.Property[] },
+		user: Pick<Profile, "email" | "properties">,
 		dates: isoly.Date[] | isoly.DateRange,
 		rules: (Rule | string | Base)[]
 	): isoly.TimeSpan | undefined
 	export function expected(
-		user: { email: userwidgets.Email; properties?: Profile.Property[] } | Profile,
+		user: Pick<Profile, "email" | "properties">,
 		dates: isoly.Date[] | isoly.DateRange,
 		raw: (Rule | string | Base)[]
 	): isoly.TimeSpan | undefined {
