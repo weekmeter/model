@@ -110,7 +110,7 @@ describe("Key", () => {
 				time: { view: true },
 				balance: { view: true },
 				rules: { view: true, admin: true },
-				report: { view: true, create: true },
+				report: { view: true, admin: true, create: true },
 			},
 		})
 		expect(weekmeter.Roles.satisfies("accountant", key.permissions, "------o1")).toEqual(true)
@@ -140,9 +140,6 @@ describe("Key", () => {
 		expect(key.permissions).toEqual({
 			"------o1": {
 				user: { view: true },
-				client: { view: true },
-				project: { view: true },
-				activity: { view: true },
 			},
 		})
 		expect(weekmeter.Roles.satisfies("user", key.permissions, "------o1")).toEqual(true)

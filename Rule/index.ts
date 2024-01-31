@@ -1,6 +1,7 @@
 import { isoly } from "isoly"
 import { userwidgets } from "@userwidgets/model"
 import { isly } from "isly"
+import { Profile } from "../User/Profile"
 import { Action } from "./Action"
 import { Adjust } from "./Adjust"
 import { Base as RuleBase } from "./Base"
@@ -32,28 +33,30 @@ export namespace Rule {
 			? Set.create(criteria, time)
 			: Adjust.create(criteria, time)
 	}
+
 	export function expected(
-		user: { email: userwidgets.Email },
+		user: { email: userwidgets.Email; properties?: Profile.Property[] },
 		dates: isoly.Date[] | isoly.DateRange,
 		rules: Base[]
 	): isoly.TimeSpan
 	export function expected(
-		user: { email: userwidgets.Email },
+		user: { email: userwidgets.Email; properties?: Profile.Property[] },
 		dates: isoly.Date[] | isoly.DateRange,
 		rules: (Rule | string | Base)[]
 	): isoly.TimeSpan | undefined
 	export function expected(
-		user: { email: userwidgets.Email },
+		user: { email: userwidgets.Email; properties?: Profile.Property[] },
 		dates: isoly.Date[] | isoly.DateRange,
-		raw: Base[]
+		raw: (Rule | string | Base)[]
 	): isoly.TimeSpan | undefined {
 		let result: isoly.TimeSpan | undefined
 		const rules = raw.reduce((result: Base[], rule) => result.concat(Base.is(rule) ? rule : parse(rule) ?? []), [])
 		if (raw.length > rules.length)
 			result = undefined
 		else {
+			const state = { ...Profile.Property.record(user.properties ?? []), email: user.email }
 			const states = (Array.isArray(dates) ? dates : isoly.DateRange.toDates(dates, true)).map(date =>
-				State.create(date, user)
+				State.create(date, state)
 			)
 			result = states.reduce(
 				(result: isoly.TimeSpan, state) =>

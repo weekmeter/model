@@ -104,4 +104,13 @@ describe("Rule", () => {
 		)
 		expect(isoly.TimeSpan.toHours(result ?? {})).toBeCloseTo(0)
 	})
+	it("Rule with property condition", () => {
+		const rules = [
+			...fixtures.getRuleArray("8h"),
+			{ name: "England Sunday", value: "set 8h user.country:England day:Sunday" },
+		]
+		const profile = fixtures.getProfile()
+		const result = weekmeter.Rule.expected(profile, { start: "2024-01-15", end: "2024-01-21" }, rules)
+		expect(isoly.TimeSpan.toHours(result ?? {})).toBeCloseTo(48)
+	})
 })
