@@ -7,6 +7,7 @@ import { Property as ProfileProperty } from "./Property"
 
 export interface Profile extends Profile.Changeable {
 	email: userwidgets.Email
+	properties: Profile.Property[]
 	modified: Modified
 }
 
