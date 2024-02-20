@@ -1,8 +1,11 @@
+import { Activity } from "./Activity"
+import { Client } from "./Client"
+
 export interface Project {
 	code: string
 	name: string
-	client: string
-	activities: { name: string; code: string }[]
+	client: Client
+	activities: Activity[]
 	permissions: {
 		work: string
 		/*
