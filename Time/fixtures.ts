@@ -1,11 +1,11 @@
 import type { Time } from "./index"
-import * as parental from "./Parental/fixtures"
-import * as sick from "./Sick/fixtures"
-import * as unpaid from "./Unpaid/fixtures"
-import * as vacation from "./Vacation/fixtures"
-import * as work from "./Work/fixtures"
+import { parental } from "./Parental/fixtures"
+import { sick } from "./Sick/fixtures"
+import { unpaid } from "./Unpaid/fixtures"
+import { vacation } from "./Vacation/fixtures"
+import { work } from "./Work/fixtures"
 
-export const create = Object.assign(createTimes, {
+export const time = Object.assign(createTimes, {
 	sick,
 	unpaid,
 	parental: parental,
@@ -15,18 +15,18 @@ export const create = Object.assign(createTimes, {
 })
 function createTimesChangeables(n: number = 1): Time.Changeable[] {
 	return new Array<Time.Changeable>()
-		.concat(sick.create.changeable(n))
-		.concat(unpaid.create.changeable(n))
-		.concat(parental.create.changeable(n))
-		.concat(vacation.create.changeable(n))
-		.concat(work.create.changeable(n))
+		.concat(sick.changeable(n))
+		.concat(unpaid.changeable(n))
+		.concat(parental.changeable(n))
+		.concat(vacation.changeable(n))
+		.concat(work.changeable(n))
 }
 
 function createTimes(n: number = 1): Time[] {
 	return new Array<Time>()
-		.concat(sick.create(Math.trunc(n)))
-		.concat(unpaid.create(n))
-		.concat(parental.create(n))
-		.concat(vacation.create(n))
-		.concat(work.create(n))
+		.concat(sick(Math.trunc(n)))
+		.concat(unpaid(n))
+		.concat(parental(n))
+		.concat(vacation(n))
+		.concat(work(n))
 }

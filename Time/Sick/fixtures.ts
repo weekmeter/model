@@ -1,11 +1,11 @@
 import { isoly } from "isoly"
-import * as fixtures from "../Changeable/fixtures"
+import { changeable } from "../Changeable/fixtures"
 import type { Changeable } from "./Changeable"
 import type { Sick } from "./index"
 
-export const create = Object.assign(createSicks, { changeable: createSickChangeables })
+export const sick = Object.assign(createSicks, { changeable: createSickChangeables })
 function createSickChangeables(n: number = 1): Changeable[] {
-	return fixtures.create("sick", n).map<Changeable>(time => ({
+	return changeable("sick", n).map<Changeable>(time => ({
 		...time,
 		type: "sick",
 	}))

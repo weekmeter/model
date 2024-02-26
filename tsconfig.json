@@ -6,8 +6,7 @@
 		"sourceRoot": "../",
 		"outDir": "dist",
 		"baseUrl": ".",
-		"allowSyntheticDefaultImports":true,
-		"types": []
+		"allowSyntheticDefaultImports": true,
 	},
 	"files": [
 		"index.ts",

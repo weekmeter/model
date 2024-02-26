@@ -1,10 +1,10 @@
-import * as fixtures from "../../fixtures"
+import { fixtures } from "../../fixtures"
 import { weekmeter } from "../../index"
 
 describe("Rule.Group", () => {
 	const group: weekmeter.Rules.Group = {
-		rules: fixtures.getRuleArray("8h"),
-		modified: fixtures.getModified(),
+		rules: fixtures.rule.array("8h"),
+		modified: fixtures.modified(),
 	}
 	it("is", () => {
 		expect(weekmeter.Rules.Group.is(group)).toEqual(true)

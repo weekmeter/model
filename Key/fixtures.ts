@@ -1,15 +1,8 @@
 import { Roles } from "../Roles"
-import * as fixtures from "../Roles/fixtures"
+import { roles } from "../Roles/fixtures"
 import { Creatable } from "./Creatable"
 
-export function create(role: Roles): Creatable {
-	return {
-		email: "jessie@rocket.com",
-		name: { first: "jessie", last: "Doe" },
-		permissions: fixtures.create(role),
-	}
-}
-export const keys = {
+export const key = Object.assign(createKey, {
 	private:
 		"MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQC7VJTUt9Us8cKj" +
 		"MzEfYyjiWA4R4/M2bS1GB4t7NXp98C3SC6dVMvDuictGeurT8jNbvJZHtCSuYEvu" +
@@ -45,4 +38,11 @@ export const keys = {
 		"0iT9wCS0DRTXu269V264Vf/3jvredZiKRkgwlL9xNAwxXFg0x/XFw005UWVRIkdg" +
 		"cKWTjpBP2dPwVZ4WWC+9aGVd+Gyn1o0CLelf4rEjGoXbAAEgAqeGUxrcIlbjXfbc" +
 		"mwIDAQAB",
+})
+function createKey(role: Roles): Creatable {
+	return {
+		email: "jessie@rocket.com",
+		name: { first: "jessie", last: "Doe" },
+		permissions: roles(role),
+	}
 }

@@ -1,5 +1,5 @@
 import { isoly } from "isoly"
-import * as fixtures from "../fixtures"
+import { fixtures } from "../fixtures"
 import { weekmeter } from "../index"
 import { Adjust } from "./Adjust"
 import { Percentage } from "./Adjust/Percentage"
@@ -8,7 +8,7 @@ import { Set } from "./Set"
 
 describe("Rule", () => {
 	it("is", () => {
-		const rules = fixtures.getRuleArray("8h")
+		const rules = fixtures.rule.array("8h")
 		rules.forEach(rule => expect(weekmeter.Rule.is(rule)).toEqual(true))
 		rules.forEach(rule => expect(weekmeter.Rule.is((({ value, ...rule }) => rule)(rule))).toEqual(false))
 		rules.forEach(rule => expect(weekmeter.Rule.is((({ name, ...rule }) => rule)(rule))).toEqual(false))
@@ -26,7 +26,7 @@ describe("Rule", () => {
 		expect(notSupported).toEqual(undefined)
 	})
 	it("8h day", () => {
-		const rules = fixtures.getRuleArray("8h")
+		const rules = fixtures.rule.array("8h")
 		const result = weekmeter.Rule.expected(
 			{ email: "jessie@rocket.com" },
 			{ start: "2023-04-10", end: "2023-04-16" },
@@ -37,7 +37,7 @@ describe("Rule", () => {
 		expect(isoly.TimeSpan.toHours(result ?? {})).toBeCloseTo(40)
 	})
 	it("7.5h day", () => {
-		const rules = fixtures.getRuleArray("7:30h")
+		const rules = fixtures.rule.array("7:30h")
 		const result = weekmeter.Rule.expected(
 			{ email: "jessie@rocket.com" },
 			{ start: "2023-04-10", end: "2023-04-16" },
@@ -46,7 +46,7 @@ describe("Rule", () => {
 		expect(isoly.TimeSpan.toHours(result ?? {})).toBeCloseTo(37.5)
 	})
 	it("8h day Maundy Thursday (half day + day off)", () => {
-		const rules = [...fixtures.getRuleArray("8h"), "adjust 50% date:2023-04-03", "set 0h date:2023-04-07"]
+		const rules = [...fixtures.rule.array("8h"), "adjust 50% date:2023-04-03", "set 0h date:2023-04-07"]
 		const result = weekmeter.Rule.expected(
 			{ email: "jessie@rocket.com" },
 			{ start: "2023-04-03", end: "2023-04-09" },
@@ -55,7 +55,7 @@ describe("Rule", () => {
 		expect(isoly.TimeSpan.toHours(result ?? {})).toBeCloseTo(28)
 	})
 	it("7.5h day Maundy Thursday", () => {
-		const rules = [...fixtures.getRuleArray("7:30h"), "adjust 50% date:2023-04-03", "set 0h date:2023-04-07"]
+		const rules = [...fixtures.rule.array("7:30h"), "adjust 50% date:2023-04-03", "set 0h date:2023-04-07"]
 		const result = weekmeter.Rule.expected(
 			{ email: "jessie@rocket.com" },
 			{ start: "2023-04-03", end: "2023-04-09" },
@@ -65,7 +65,7 @@ describe("Rule", () => {
 	})
 	it("8h day Maundy Thursday 80%", () => {
 		const rules = [
-			...fixtures.getRuleArray("8h"),
+			...fixtures.rule.array("8h"),
 			"adjust 50% date:2023-04-06",
 			"set 0h date:2023-04-07",
 			"adjust 80% user.email:jessie@rocket*",
@@ -78,7 +78,7 @@ describe("Rule", () => {
 		expect(isoly.TimeSpan.toHours(result ?? {})).toBeCloseTo(22.4)
 	})
 	it("numbered, 0-padded and named weekday", () => {
-		const rules = [...fixtures.getRuleArray("8h"), "set 0h day:04 day:4 day:Tuesday"]
+		const rules = [...fixtures.rule.array("8h"), "set 0h day:04 day:4 day:Tuesday"]
 		const result = weekmeter.Rule.expected(
 			{ email: "jessie@rocket.com" },
 			{ start: "2023-04-03", end: "2023-04-05" },
@@ -87,7 +87,7 @@ describe("Rule", () => {
 		expect(isoly.TimeSpan.toHours(result ?? {})).toBeCloseTo(16)
 	})
 	it("numbered and 0-padded month", () => {
-		const rules = [...fixtures.getRuleArray("8h"), "set 0h month:4 month:4"]
+		const rules = [...fixtures.rule.array("8h"), "set 0h month:4 month:4"]
 		const result = weekmeter.Rule.expected(
 			{ email: "jessie@rocket.com" },
 			{ start: "2023-04-03", end: "2023-04-05" },
@@ -96,7 +96,7 @@ describe("Rule", () => {
 		expect(isoly.TimeSpan.toHours(result ?? {})).toBeCloseTo(0)
 	})
 	it("numbered and 0-padded week", () => {
-		const rules = [...fixtures.getRuleArray("8h"), "set 0h week:04 week:4"]
+		const rules = [...fixtures.rule.array("8h"), "set 0h week:04 week:4"]
 		const result = weekmeter.Rule.expected(
 			{ email: "jessie@rocket.com" },
 			{ start: "2023-01-25", end: "2023-01-27" },
@@ -106,10 +106,10 @@ describe("Rule", () => {
 	})
 	it("Rule with property condition", () => {
 		const rules = [
-			...fixtures.getRuleArray("8h"),
+			...fixtures.rule.array("8h"),
 			{ name: "England Sunday", value: "set 8h user.country:England day:Sunday" },
 		]
-		const profile = fixtures.getProfile()
+		const profile = fixtures.user.profile()
 		const result = weekmeter.Rule.expected(profile, { start: "2024-01-15", end: "2024-01-21" }, rules)
 		expect(isoly.TimeSpan.toHours(result ?? {})).toBeCloseTo(48)
 	})

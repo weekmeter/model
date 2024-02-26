@@ -1,13 +1,13 @@
-import * as fixtures from "../fixtures"
+import { fixtures } from "../fixtures"
 import { weekmeter } from "../index"
 
 describe("Report.Salary", () => {
 	it("is", () => {
-		const report: weekmeter.Report.Salary = fixtures.getReport.salary()
+		const report: weekmeter.Report.Salary = fixtures.report.salary()
 		expect(weekmeter.Report.Salary.is(report)).toEqual(true)
 	})
 	it("generate", () => {
-		const times = fixtures.getTime(5)
+		const times = fixtures.time(5)
 		let report = weekmeter.Report.Salary.generate(times)
 		expect(report.adjustment).toEqual(undefined)
 		expect(report.total).toEqual({ hours: 200 })
