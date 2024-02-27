@@ -1,5 +1,7 @@
 import type { Time } from "./index"
 import { parental } from "./Parental/fixtures"
+import { rule } from "./Rule/fixtures"
+import { rules } from "./Rules/fixtures"
 import { sick } from "./Sick/fixtures"
 import { unpaid } from "./Unpaid/fixtures"
 import { vacation } from "./Vacation/fixtures"
@@ -8,9 +10,11 @@ import { work } from "./Work/fixtures"
 export const time = Object.assign(createTimes, {
 	sick,
 	unpaid,
-	parental: parental,
+	parental,
 	vacation,
 	work,
+	rule,
+	rules,
 	changeable: createTimesChangeables,
 })
 function createTimesChangeables(n: number = 1): Time.Changeable[] {

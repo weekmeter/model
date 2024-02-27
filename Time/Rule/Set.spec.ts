@@ -1,4 +1,4 @@
-import { weekmeter } from "../index"
+import { weekmeter } from "../../index"
 import { Adjust } from "./Adjust"
 import { Criteria } from "./Criteria"
 import { Set } from "./Set"
@@ -29,11 +29,11 @@ describe("Rule.Set", () => {
 		expect(new Set(criteria, { hours: 8 }).evaluate(thursday, {})).not.toBe(time)
 	})
 	it("toString", () => {
-		expect(weekmeter.Rule.parse("set 8h day:Wednesday")?.toString()).toEqual("set 8:00h day:Wednesday")
-		expect(weekmeter.Rule.parse("set 8:3h day:Wednesday")?.toString()).toEqual("set 8:03h day:Wednesday")
-		expect(weekmeter.Rule.parse("set 8:30h day:Wednesday")?.toString()).toEqual("set 8:30h day:Wednesday")
-		expect(weekmeter.Rule.parse("set 8:300h day:Wednesday")?.toString()).toEqual("set 8:300h day:Wednesday")
-		expect(weekmeter.Rule.parse("set 10:30h day:Wednesday")?.toString()).toEqual("set 10:30h day:Wednesday")
-		expect(weekmeter.Rule.parse("set 100:30h day:Wednesday")?.toString()).toEqual("set 100:30h day:Wednesday")
+		expect(weekmeter.Time.Rule.parse("set 8h day:Wednesday")?.toString()).toEqual("set 8:00h day:Wednesday")
+		expect(weekmeter.Time.Rule.parse("set 8:3h day:Wednesday")?.toString()).toEqual("set 8:03h day:Wednesday")
+		expect(weekmeter.Time.Rule.parse("set 8:30h day:Wednesday")?.toString()).toEqual("set 8:30h day:Wednesday")
+		expect(weekmeter.Time.Rule.parse("set 8:300h day:Wednesday")?.toString()).toEqual("set 8:300h day:Wednesday")
+		expect(weekmeter.Time.Rule.parse("set 10:30h day:Wednesday")?.toString()).toEqual("set 10:30h day:Wednesday")
+		expect(weekmeter.Time.Rule.parse("set 100:30h day:Wednesday")?.toString()).toEqual("set 100:30h day:Wednesday")
 	})
 })

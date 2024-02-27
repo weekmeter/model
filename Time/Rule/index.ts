@@ -1,7 +1,7 @@
 import { isoly } from "isoly"
 import { userwidgets } from "@userwidgets/model"
 import { isly } from "isly"
-import { Profile } from "../User/Profile"
+import { Profile } from "../../User/Profile"
 import { Action } from "./Action"
 import { Adjust } from "./Adjust"
 import { Base as RuleBase } from "./Base"

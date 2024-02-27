@@ -2,6 +2,8 @@ import { isly } from "isly"
 import { Base as TimeBase } from "./Base"
 import { Changeable as TimeChangeable } from "./Changeable"
 import { Parental as TimeParental } from "./Parental"
+import { Rule as TimeRule } from "./Rule"
+import { Rules as TimeRules } from "./Rules"
 import { Sick as TimeSick } from "./Sick"
 import { Type as TimeType } from "./Type"
 import { Unpaid as TimeUnpaid } from "./Unpaid"
@@ -10,6 +12,17 @@ import { Work as TimeWork } from "./Work"
 
 export type Time = Time.Sick | Time.Unpaid | Time.Parental | Time.Vacation | Time.Work
 export namespace Time {
+	export type Rule = TimeRule
+	export const Rule = TimeRule
+	export type Rules = TimeRules
+	export const Rules = TimeRules
+	export namespace Rules {
+		export type Changeable = TimeRules.Changeable
+		export type Group = TimeRules.Group
+		export namespace Group {
+			export type Changeable = TimeRules.Group.Changeable
+		}
+	}
 	export type Base = TimeBase
 	export const Base = TimeBase
 	export type Type = TimeType

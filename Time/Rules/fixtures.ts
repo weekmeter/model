@@ -1,4 +1,4 @@
-import { modified } from "../Modified/fixtures"
+import { modified } from "../../Modified/fixtures"
 import { group } from "./Group/fixtures"
 import type { Rules } from "./index"
 

@@ -6,8 +6,6 @@ import { modified } from "./Modified/fixtures"
 import { project } from "./Project/fixtures"
 import { report } from "./Report/fixtures"
 import { roles } from "./Roles/fixtures"
-import { rule } from "./Rule/fixtures"
-import { rules } from "./Rules/fixtures"
 import { time } from "./Time/fixtures"
 import { user } from "./User/fixtures"
 
@@ -19,8 +17,6 @@ export const fixtures = {
 	report,
 	user,
 	time,
-	rule,
-	rules,
 	roles,
 	key,
 	client,
