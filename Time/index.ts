@@ -14,6 +14,9 @@ export type Time = Time.Sick | Time.Unpaid | Time.Parental | Time.Vacation | Tim
 export namespace Time {
 	export type Rule = TimeRule
 	export const Rule = TimeRule
+	export namespace Rule {
+		export type Base = TimeRule.Base
+	}
 	export type Rules = TimeRules
 	export const Rules = TimeRules
 	export namespace Rules {

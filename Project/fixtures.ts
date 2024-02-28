@@ -1,4 +1,5 @@
 import { activity } from "../Activity/fixtures"
+import { client } from "../Client/fixtures"
 import { code } from "../Code/fixtures"
 import { modified } from "../Modified/fixtures"
 import { access } from "./Access/fixtures"
@@ -16,6 +17,7 @@ function createProjectArray(n: number): Project[] {
 function createProject(options?: { n?: number }): Project {
 	return {
 		...project.creatable(options),
+		client: client(options),
 		activities: activity.array((options?.n ?? 1) % 2),
 		access: access(),
 		modified: modified(),
@@ -33,7 +35,7 @@ function createProjectChangeable(options?: { n?: number }): Project.Changeable {
 	const project = code({ ...options, resource: "project" })
 	return {
 		organization: code({ ...options, resource: "organization" }),
-		client: code({ ...options, resource: "client" }),
+		client: { code: code({ ...options, resource: "client" }) },
 		code: project,
 	}
 }

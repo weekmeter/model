@@ -107,7 +107,7 @@ describe("Rule", () => {
 	it("Rule with property condition", () => {
 		const rules = [
 			...fixtures.time.rule.array("8h"),
-			{ name: "England Sunday", value: "set 8h user.country:England day:Sunday" },
+			{ name: "Sweden Sunday", value: "set 8h user.country:SE day:Sunday" },
 		]
 		const profile = fixtures.user.profile()
 		const result = weekmeter.Time.Rule.expected(profile, { start: "2024-01-15", end: "2024-01-21" }, rules)

@@ -12,8 +12,9 @@ export function createProfile(): Profile {
 }
 export function createProperties(): Property[] {
 	return [
-		{ name: "country", value: "England" },
-		{ name: "department", value: "HR" },
+		{ name: "country", value: "SE" },
+		{ name: "team", value: "QA" },
+		{ name: "department", value: "Development" },
 	]
 }
 export function createChangeable(): Profile.Changeable {

@@ -1,9 +1,9 @@
-import { Access } from "../index"
+import { Rule as AccessRule } from "../Rule/index"
 import { Criteria } from "./Criteria"
 import type { State } from "./State"
 
 export class Rule {
-	private constructor(readonly type: Access.Rule.Type, private criteria: Criteria) {}
+	private constructor(readonly type: AccessRule.Type, private criteria: Criteria) {}
 	is(state: State): boolean {
 		return this.criteria.is(state)
 	}
@@ -16,7 +16,7 @@ export class Rule {
 	static stringify(...rules: Rule[]): string[] {
 		return rules.map(rule => rule.stringify())
 	}
-	static parse(rules: Access.Rule | Rule | Rule.Recursive): Rule[] | undefined {
+	static parse(rules: AccessRule | Rule | Rule.Recursive): Rule[] | undefined {
 		let result: Rule[] | undefined
 		if (Array.isArray(rules)) {
 			result = rules.reduce<Rule[]>((result, rule) => result.concat(Rule.parse(rule) ?? []), [])
@@ -26,8 +26,8 @@ export class Rule {
 			result = [rules]
 		else {
 			const rule = rules
-			const match = rule.match(Access.Rule.pattern)
-			if (match?.length != 3 || !Access.Rule.Type.is(match[1]))
+			const match = rule.match(AccessRule.pattern)
+			if (match?.length != 3 || !AccessRule.Type.is(match[1]))
 				result = undefined
 			else {
 				const [, type, criteria] = match
@@ -41,5 +41,5 @@ export class Rule {
 	}
 }
 namespace Rule {
-	export type Recursive = (Access.Rule | Rule | Recursive)[]
+	export type Recursive = (AccessRule | Rule | Recursive)[]
 }

@@ -1,6 +1,7 @@
+import type { Project } from "../../index"
 import type { Access } from "../index"
 import { Rule as EngineRule } from "./Rule"
-import { State as EngineState } from "./State"
+import { State as EngineState, State } from "./State"
 
 export class Engine {
 	private constructor(private state: Engine.State, private rules: Engine.Rule[]) {}
@@ -20,9 +21,12 @@ export class Engine {
 					new Set<Access.Rule.Type>(types)
 			  ).size == 0
 	}
-	static create(state: Engine.State, access: Access): Engine | undefined {
-		const rules = EngineRule.parse(access.rules)
-		return !rules ? undefined : new this(state, rules)
+	static create(
+		project: Parameter<typeof State.create, 0> & Pick<Project, "access">,
+		user: Parameter<typeof State.create, 1>
+	): Engine | undefined {
+		const rules = EngineRule.parse(project.access.rules)
+		return !rules ? undefined : new this(State.create(project, user), rules)
 	}
 	static is(value: unknown): value is Engine {
 		return value instanceof Engine

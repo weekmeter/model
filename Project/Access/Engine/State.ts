@@ -1,7 +1,9 @@
+import { userwidgets } from "@userwidgets/model"
 import { isly } from "isly"
 import { Activity } from "../../../Activity"
 import { Client } from "../../../Client"
 import { Code } from "../../../Code"
+import { Profile } from "../../../User/Profile"
 
 export interface State {
 	project: {
@@ -34,4 +36,10 @@ export namespace State {
 	})
 	export const is = type.is
 	export const flaw = type.flaw
+	export function create(project: State["project"], user: { email: userwidgets.Email; profile?: Profile }): State {
+		return {
+			project,
+			user: { ...(user.profile && { ...Profile.Property.record(user.profile.properties) }), email: user.email },
+		}
+	}
 }
