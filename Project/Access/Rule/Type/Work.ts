@@ -5,5 +5,5 @@ export namespace Work {
 	export const value = "work" as const
 	export const type = isly.string<Work>(value)
 	export const is = type.is
-	// export const flaw = type.flaw
+	export const flaw = type.flaw
 }
