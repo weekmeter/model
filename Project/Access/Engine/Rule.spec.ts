@@ -28,4 +28,10 @@ describe("Project.Access.Engine.Rule", () => {
 		parsed.passing.forEach(rule => expect(rule.is(state)).toEqual(true))
 		parsed.failing.forEach(rule => expect(rule.is(state)).toEqual(false))
 	})
+	it("stringify", () => {
+		const rules = fixtures.project.access.rule.array()
+		const parsed = weekmeter.Project.Access.Engine.Rule.parse(rules)
+		const stringRules = parsed?.map(rule => rule.stringify())
+		expect(stringRules).toEqual(rules)
+	})
 })

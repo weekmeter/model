@@ -21,6 +21,9 @@ export class Engine {
 					new Set<Access.Rule.Type>(types)
 			  ).size == 0
 	}
+	stringify(): Access.Rule[] {
+		return this.rules.map(rule => rule.stringify())
+	}
 	static create(
 		project: Parameter<typeof State.create, 0> & Pick<Project, "access">,
 		user: Parameter<typeof State.create, 1>

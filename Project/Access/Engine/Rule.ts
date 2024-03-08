@@ -7,7 +7,7 @@ export class Rule {
 	is(state: State): boolean {
 		return this.criteria.is(state)
 	}
-	stringify(): string {
+	stringify(): AccessRule {
 		return `${this.type} if (${this.criteria.stringify()})`
 	}
 	static create(...parameters: ProtectedConstructorParameters<typeof Rule>): Rule {
