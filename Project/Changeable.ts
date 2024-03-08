@@ -23,7 +23,12 @@ export namespace Changeable {
 	})
 	export const is = type.is
 	export const flaw = type.flaw
-	export function key(project: Pick<Changeable, "organization" | "client" | "code">): string {
-		return `${project.organization}|${project.client}|${project.code}`
+	export function key(
+		project:
+			| Pick<Changeable, "organization" | "client" | "code">
+			| (Pick<Changeable, "organization" | "code"> & { client: string })
+	): string {
+		const client = typeof project.client == "string" ? project.client : project.client.code
+		return `${project.organization}|${client}|${project.code}`
 	}
 }
