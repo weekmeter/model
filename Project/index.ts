@@ -26,6 +26,7 @@ export namespace Project {
 			export namespace Type {
 				export type Work = ProjectAccess.Rule.Type.Work
 				export type View = ProjectAccess.Rule.Type.View
+				export type Admin = ProjectAccess.Rule.Type.Admin
 			}
 		}
 		export type Engine = ProjectAccess.Engine

@@ -8,6 +8,7 @@ export const rule = Object.assign(createRule, {
 		"work if (project.code:weekmeter)",
 		"work if (project.activities:some(code:sprint))",
 		"view if (user.department:Development)",
+		"admin if (user.department:Development)",
 	],
 })
 function createRule(): Rule {
