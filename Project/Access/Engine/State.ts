@@ -19,16 +19,8 @@ export namespace State {
 		project: isly.object<State["project"]>({
 			code: Code.type,
 			name: isly.string(),
-			client: isly.object<State["project"]["client"]>({
-				code: Code.type,
-				name: isly.string(),
-			}),
-			activities: isly.array(
-				isly.object<State["project"]["activities"][number]>({
-					code: Code.type,
-					name: isly.string(),
-				})
-			),
+			client: Client.type.pick(["code", "name"]),
+			activities: isly.array(Activity.type.pick(["code", "name"])),
 		}),
 		user: isly.object<State["user"]>({
 			email: isly.string(),
