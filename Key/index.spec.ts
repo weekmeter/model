@@ -1,26 +1,26 @@
 import { authly } from "authly"
 import { userwidgets } from "@userwidgets/model"
+import { fixtures } from "../fixtures"
 import { weekmeter } from "../index"
-import * as fixtures from "./fixtures"
 
 const now = new Date(Math.floor(new Date().getTime() / 1_000) * 1_000)
 authly.Issuer.defaultIssuedAt = Math.floor(now.getTime() / 1_000)
 
 describe("Key", () => {
 	it("Manager", async () => {
-		const creatable: weekmeter.Key.Creatable = fixtures.create("manager")
+		const creatable: weekmeter.Key.Creatable = fixtures.key("manager")
 		const issuer = userwidgets.User.Key.Issuer.create(
 			"userwidgets",
 			"weekmeter",
-			fixtures.keys.public,
-			fixtures.keys.private
+			fixtures.key.public,
+			fixtures.key.private
 		)
 		const token = await issuer.sign(creatable, now.getTime() / 1_000)
 		if (token == undefined) {
 			expect(token).not.toEqual(undefined)
 			return
 		}
-		const verifier = weekmeter.Key.Verifier.create(fixtures.keys.public)
+		const verifier = weekmeter.Key.Verifier.create(fixtures.key.public)
 		const key = await verifier.verify(token)
 		if (key == undefined) {
 			expect(key).not.toEqual(undefined)
@@ -45,19 +45,19 @@ describe("Key", () => {
 		expect(weekmeter.Roles.satisfies("manager", key.permissions, "------o1")).toEqual(true)
 	})
 	it("Project Manager", async () => {
-		const creatable: weekmeter.Key.Creatable = fixtures.create("projectManager")
+		const creatable: weekmeter.Key.Creatable = fixtures.key("projectManager")
 		const issuer = userwidgets.User.Key.Issuer.create(
 			"userwidgets",
 			"weekmeter",
-			fixtures.keys.public,
-			fixtures.keys.private
+			fixtures.key.public,
+			fixtures.key.private
 		)
 		const token = await issuer.sign(creatable, now.getTime() / 1_000)
 		if (token == undefined) {
 			expect(token).not.toEqual(undefined)
 			return
 		}
-		const verifier = weekmeter.Key.Verifier.create(fixtures.keys.public)
+		const verifier = weekmeter.Key.Verifier.create(fixtures.key.public)
 		const key = await verifier.verify(token)
 		if (key == undefined) {
 			expect(key).not.toEqual(undefined)
@@ -80,19 +80,19 @@ describe("Key", () => {
 		expect(weekmeter.Roles.satisfies("projectManager", key.permissions, "------o1")).toEqual(true)
 	})
 	it("Accountant", async () => {
-		const creatable: weekmeter.Key.Creatable = fixtures.create("accountant")
+		const creatable: weekmeter.Key.Creatable = fixtures.key("accountant")
 		const issuer = userwidgets.User.Key.Issuer.create(
 			"userwidgets",
 			"weekmeter",
-			fixtures.keys.public,
-			fixtures.keys.private
+			fixtures.key.public,
+			fixtures.key.private
 		)
 		const token = await issuer.sign(creatable, now.getTime() / 1_000)
 		if (token == undefined) {
 			expect(token).not.toEqual(undefined)
 			return
 		}
-		const verifier = weekmeter.Key.Verifier.create(fixtures.keys.public)
+		const verifier = weekmeter.Key.Verifier.create(fixtures.key.public)
 		const key = await verifier.verify(token)
 		if (key == undefined) {
 			expect(key).not.toEqual(undefined)
@@ -116,19 +116,19 @@ describe("Key", () => {
 		expect(weekmeter.Roles.satisfies("accountant", key.permissions, "------o1")).toEqual(true)
 	})
 	it("User", async () => {
-		const creatable: weekmeter.Key.Creatable = fixtures.create("user")
+		const creatable: weekmeter.Key.Creatable = fixtures.key("user")
 		const issuer = userwidgets.User.Key.Issuer.create(
 			"userwidgets",
 			"weekmeter",
-			fixtures.keys.public,
-			fixtures.keys.private
+			fixtures.key.public,
+			fixtures.key.private
 		)
 		const token = await issuer.sign(creatable, now.getTime() / 1_000)
 		if (token == undefined) {
 			expect(token).not.toEqual(undefined)
 			return
 		}
-		const verifier = weekmeter.Key.Verifier.create(fixtures.keys.public)
+		const verifier = weekmeter.Key.Verifier.create(fixtures.key.public)
 		const key = await verifier.verify(token)
 		if (key == undefined) {
 			expect(key).not.toEqual(undefined)

@@ -1,9 +1,9 @@
-import { weekmeter } from "../.."
-import * as fixtures from "./fixtures"
+import { fixtures } from "../../fixtures"
+import { weekmeter } from "../../index"
 
 describe("Time.Unpaid", () => {
 	it("type", () => {
-		const [time]: weekmeter.Time.Unpaid[] = fixtures.create(1)
+		const [time]: weekmeter.Time.Unpaid[] = fixtures.time.unpaid(1)
 		expect(weekmeter.Time.Unpaid.is(time)).toEqual(true)
 		expect(weekmeter.Time.Unpaid.is((({ type, ...time }) => time)(time))).toEqual(false)
 		expect(weekmeter.Time.Unpaid.is((({ date, ...time }) => time)(time))).toEqual(false)

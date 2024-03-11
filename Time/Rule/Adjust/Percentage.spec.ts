@@ -1,4 +1,4 @@
-import { weekmeter } from "../../index"
+import { weekmeter } from "../../../index"
 import { Criteria } from "../Criteria"
 import { State } from "../State"
 import { Percentage } from "./Percentage"
@@ -29,11 +29,11 @@ describe("Rule.Adjust.Percentage", () => {
 		expect(new Percentage(criteria, 1).evaluate(thursday, time)).not.toBe(time)
 	})
 	it("toString", () => {
-		expect(weekmeter.Rule.parse("adjust 80% day:Wednesday")?.toString()).toEqual("adjust 80% day:Wednesday")
-		expect(weekmeter.Rule.parse("adjust 80.2% day:Wednesday")?.toString()).toEqual("adjust 80.2% day:Wednesday")
-		expect(weekmeter.Rule.parse("adjust 80.02% day:Wednesday")?.toString()).toEqual("adjust 80.02% day:Wednesday")
-		expect(weekmeter.Rule.parse("adjust 8% day:Wednesday")?.toString()).toEqual("adjust 8% day:Wednesday")
-		expect(weekmeter.Rule.parse("adjust 8.20% day:Wednesday")?.toString()).toEqual("adjust 8.2% day:Wednesday")
-		expect(weekmeter.Rule.parse("adjust 8.0% day:Wednesday")?.toString()).toEqual("adjust 8% day:Wednesday")
+		expect(weekmeter.Time.Rule.parse("adjust 80% day:Wednesday")?.toString()).toEqual("adjust 80% day:Wednesday")
+		expect(weekmeter.Time.Rule.parse("adjust 80.2% day:Wednesday")?.toString()).toEqual("adjust 80.2% day:Wednesday")
+		expect(weekmeter.Time.Rule.parse("adjust 80.02% day:Wednesday")?.toString()).toEqual("adjust 80.02% day:Wednesday")
+		expect(weekmeter.Time.Rule.parse("adjust 8% day:Wednesday")?.toString()).toEqual("adjust 8% day:Wednesday")
+		expect(weekmeter.Time.Rule.parse("adjust 8.20% day:Wednesday")?.toString()).toEqual("adjust 8.2% day:Wednesday")
+		expect(weekmeter.Time.Rule.parse("adjust 8.0% day:Wednesday")?.toString()).toEqual("adjust 8% day:Wednesday")
 	})
 })

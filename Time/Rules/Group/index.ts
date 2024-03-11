@@ -1,7 +1,7 @@
 // This import is unused but required. The produced build is wrong without it
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { isly } from "isly"
-import { Modified } from "../../Modified"
+import { Modified } from "../../../Modified"
 import { Changeable as GroupChangeable } from "./Changeable"
 
 export interface Group extends Group.Changeable {

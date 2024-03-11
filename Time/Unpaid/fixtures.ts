@@ -1,11 +1,11 @@
 import { isoly } from "isoly"
-import * as fixtures from "../Changeable/fixtures"
+import { changeable } from "../Changeable/fixtures"
 import type { Changeable } from "./Changeable"
 import type { Unpaid } from "./index"
-export const create = Object.assign(createUnpaids, { changeable: createUnpaidChangeables })
 
+export const unpaid = Object.assign(createUnpaids, { changeable: createUnpaidChangeables })
 function createUnpaidChangeables(n: number = 1): Changeable[] {
-	return fixtures.create("unpaid", n).map<Changeable>(time => ({
+	return changeable("unpaid", n).map<Changeable>(time => ({
 		...time,
 		type: "unpaid",
 	}))

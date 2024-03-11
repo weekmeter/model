@@ -8,7 +8,7 @@ export interface State {
 	month: string[]
 	week: string[]
 	day: string[]
-	user: { email: string }
+	user: { email: string; [property: string]: string | undefined }
 }
 export namespace State {
 	export const type = isly.object<State>({

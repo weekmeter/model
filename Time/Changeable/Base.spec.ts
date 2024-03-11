@@ -1,6 +1,6 @@
 import { isoly } from "isoly"
+import { fixtures } from "../../fixtures"
 import { weekmeter } from "../../index"
-import * as fixtures from "../fixtures"
 
 describe("Time.Changeable.Base", () => {
 	it("type", () => {
@@ -12,7 +12,7 @@ describe("Time.Changeable.Base", () => {
 			value: { hours: 8 },
 		}
 		expect(weekmeter.Time.Changeable.Base.is(base)).toEqual(true)
-		const [time]: weekmeter.Time.Changeable.Base[] = fixtures.create(1).filter(time => time.type == "work")
+		const [time]: weekmeter.Time.Changeable.Base[] = fixtures.time(1).filter(time => time.type == "work")
 		expect(weekmeter.Time.Changeable.Base.is(time)).toEqual(true)
 		expect(weekmeter.Time.Changeable.Base.is((({ type, ...time }) => time)(time))).toEqual(false)
 		expect(weekmeter.Time.Changeable.Base.is((({ date, ...time }) => time)(time))).toEqual(false)
@@ -24,7 +24,7 @@ describe("Time.Changeable.Base", () => {
 	it("key with date", () => {
 		const now = isoly.Date.now()
 		const [sick, unpaid, parental, vacation, work] = fixtures
-			.create(1)
+			.time(1)
 			.map(time => weekmeter.Time.Changeable.Base.key(time))
 		expect(sick).toEqual(`sick|------o1|jessie@rocket.com|${now}`)
 		expect(unpaid).toEqual(`unpaid|------o1|jessie@rocket.com|${now}`)
@@ -34,7 +34,7 @@ describe("Time.Changeable.Base", () => {
 	})
 	it("key no date", () => {
 		const [sick, unpaid, parental, vacation, work] = fixtures
-			.create(1)
+			.time(1)
 			.map(time => weekmeter.Time.Changeable.Base.key(time, { date: false }))
 		expect(sick).toEqual("sick|------o1|jessie@rocket.com")
 		expect(unpaid).toEqual("unpaid|------o1|jessie@rocket.com")

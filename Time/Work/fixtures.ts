@@ -1,11 +1,11 @@
 import { isoly } from "isoly"
-import * as fixtures from "../Changeable/fixtures"
+import { changeable } from "../Changeable/fixtures"
 import { Changeable } from "./Changeable"
 import { Work } from "./index"
 
-export const create = Object.assign(createWorks, { changeable: createWorkCreatables })
+export const work = Object.assign(createWorks, { changeable: createWorkCreatables })
 function createWorkCreatables(n: number = 1): Changeable[] {
-	return fixtures.create("work", n).map<Changeable>((time, index) => ({
+	return changeable("work", n).map<Changeable>((time, index) => ({
 		...time,
 		type: "work",
 		client: `c${(index % 5) + 1}`.padStart(8, "-"),

@@ -5,22 +5,43 @@ export type Permissions = userwidgets.User.Permissions<Permissions.Weekmeter>
 export namespace Permissions {
 	export type Weekmeter = {
 		client?: { view?: true; create?: true }
-		project?: { view?: true; create?: true }
+		project?: { view?: true; create?: true; admin?: true }
 		activity?: { view?: true; create?: true }
 		time?: { view?: true; admin?: true }
-		report?: { view?: true; create?: true; override?: true }
+		report?: { view?: true; create?: true; admin?: true }
 	}
 	export namespace Weekmeter {
 		export const type = isly.object<Weekmeter>({
-			client: isly.object({ view: isly.boolean().optional(), create: isly.boolean().optional() }).optional(),
-			project: isly.object({ view: isly.boolean().optional(), create: isly.boolean().optional() }).optional(),
-			activity: isly.object({ view: isly.boolean().optional(), create: isly.boolean().optional() }).optional(),
-			time: isly.object({ view: isly.boolean().optional(), admin: isly.boolean().optional() }).optional(),
+			client: isly
+				.object<NonNullable<Weekmeter["client"]>>({
+					view: isly.boolean(true).optional(),
+					create: isly.boolean(true).optional(),
+				})
+				.optional(),
+			project: isly
+				.object<NonNullable<Weekmeter["project"]>>({
+					view: isly.boolean(true).optional(),
+					create: isly.boolean(true).optional(),
+					admin: isly.boolean(true).optional(),
+				})
+				.optional(),
+			activity: isly
+				.object<NonNullable<Weekmeter["activity"]>>({
+					view: isly.boolean(true).optional(),
+					create: isly.boolean(true).optional(),
+				})
+				.optional(),
+			time: isly
+				.object<NonNullable<Weekmeter["time"]>>({
+					view: isly.boolean(true).optional(),
+					admin: isly.boolean(true).optional(),
+				})
+				.optional(),
 			report: isly
-				.object({
-					view: isly.boolean().optional(),
-					create: isly.boolean().optional(),
-					admin: isly.boolean().optional(),
+				.object<NonNullable<Weekmeter["report"]>>({
+					view: isly.boolean(true).optional(),
+					create: isly.boolean(true).optional(),
+					admin: isly.boolean(true).optional(),
 				})
 				.optional(),
 		})

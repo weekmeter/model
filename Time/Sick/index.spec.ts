@@ -1,9 +1,9 @@
-import { weekmeter } from "../.."
-import * as fixtures from "./fixtures"
+import { fixtures } from "../../fixtures"
+import { weekmeter } from "../../index"
 
 describe("Time.Sick", () => {
 	it("type", () => {
-		const [time]: weekmeter.Time.Sick[] = fixtures.create(1)
+		const [time]: weekmeter.Time.Sick[] = fixtures.time.sick(1)
 		expect(weekmeter.Time.Sick.is(time)).toEqual(true)
 		expect(weekmeter.Time.Sick.is((({ type, ...time }) => time)(time))).toEqual(false)
 		expect(weekmeter.Time.Sick.is((({ date, ...time }) => time)(time))).toEqual(false)
