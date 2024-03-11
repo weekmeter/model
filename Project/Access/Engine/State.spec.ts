@@ -1,11 +1,10 @@
-// import from root when done
+import { fixtures } from "../../../fixtures"
 import { weekmeter } from "../../../index"
-import { engine } from "./fixtures"
 
 describe("Project.Access.Engine", () => {
 	it("is", () => {
 		let state: weekmeter.Project.Access.Engine.State
-		state = engine.state()
+		state = fixtures.project.access.engine.state()
 		expect(weekmeter.Project.Access.Engine.State.is(state)).toEqual(true)
 		state = {
 			...state,
