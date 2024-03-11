@@ -1,10 +1,18 @@
 import type { Project } from "../../index"
-import type { Access } from "../index"
+import { Access } from "../index"
 import { Rule as EngineRule } from "./Rule"
 import { State as EngineState, State } from "./State"
 
 export class Engine {
 	private constructor(private state: Engine.State, private rules: Engine.Rule[]) {}
+	any(): boolean {
+		return (
+			this.rules.reduce(
+				(result, rule) => (!rule.is(this.state) ? result : (result.delete(rule.type), result)),
+				new Set<Access.Rule.Type>(Access.Rule.Type.values)
+			).size < Access.Rule.Type.values.length
+		)
+	}
 	some(...types: Access.Rule.Type[]): boolean {
 		return !this.rules.length
 			? true
