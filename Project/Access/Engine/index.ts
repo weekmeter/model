@@ -6,28 +6,28 @@ import { State as EngineState, State } from "./State"
 export class Engine {
 	private constructor(private state: Engine.State, private rules: Engine.Rule[]) {}
 	any(): boolean {
-		return (
-			this.rules.reduce(
-				(result, rule) => (!rule.is(this.state) ? result : (result.delete(rule.type), result)),
-				new Set<Access.Rule.Type>(Access.Rule.Type.values)
-			).size < Access.Rule.Type.values.length
-		)
+		return this.some(...Access.Rule.Type.values)
 	}
 	some(...types: Access.Rule.Type[]): boolean {
-		return !this.rules.length
-			? true
-			: this.rules.reduce(
-					(result, rule) => (!rule.is(this.state) ? result : (result.delete(rule.type), result)),
-					new Set<Access.Rule.Type>(types)
-			  ).size < types.length
+		let result: Return<Engine["some"]>
+		if (!this.rules.length)
+			result = true
+		else
+			result = !!this.rules.find(rule => rule.is(this.state) && types.includes(rule.type))
+		return result
 	}
 	every(...types: Access.Rule.Type[]): boolean {
-		return !this.rules.length
-			? true
-			: this.rules.reduce(
-					(result, rule) => (!rule.is(this.state) ? result : (result.delete(rule.type), result)),
-					new Set<Access.Rule.Type>(types)
-			  ).size == 0
+		let result: Return<Engine["every"]>
+		if (!this.rules.length)
+			result = true
+		else
+			for (
+				let [index, remainder] = [0, new Set(types)];
+				!(result = !remainder.size) && index < this.rules.length;
+				index++
+			)
+				this.rules[index].is(this.state) && remainder.delete(this.rules[index].type)
+		return result
 	}
 	stringify(): Access.Rule[] {
 		return this.rules.map(rule => rule.stringify())

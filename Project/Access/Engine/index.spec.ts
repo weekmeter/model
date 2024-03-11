@@ -44,6 +44,11 @@ describe("Project.Access.Engine", () => {
 		expect(engine?.every("work")).toEqual(false)
 		expect(engine?.every("work", "view")).toEqual(false)
 		expect(engine?.every("view", "work")).toEqual(false)
+		project.access.rules = []
+		engine = weekmeter.Project.Access.Engine.create(project, user)
+		expect(engine?.any()).toEqual(true)
+		expect(engine?.some("view")).toEqual(true)
+		expect(engine?.every("view")).toEqual(true)
 	})
 	it("stringify", () => {
 		const project = { ...fixtures.project.access.engine.state().project, access: fixtures.project.access() }
