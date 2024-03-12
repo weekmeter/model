@@ -13,6 +13,7 @@ export namespace Access {
 		export namespace Type {
 			export type Work = AccessRule.Type.Work
 			export type View = AccessRule.Type.View
+			export type Admin = AccessRule.Type.Admin
 		}
 	}
 	export type Engine = AccessEngine

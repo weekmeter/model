@@ -8,6 +8,7 @@ export namespace Rule {
 	export namespace Type {
 		export type Work = RuleType.Work
 		export type View = RuleType.View
+		export type Admin = RuleType.Admin
 	}
 	export const pattern = new RegExp(`^(${Type.values.join("|")}) if \\((.+)\\)$`)
 	export const type = isly.string<Rule>(pattern)

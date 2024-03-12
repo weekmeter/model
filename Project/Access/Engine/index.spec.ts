@@ -13,6 +13,7 @@ describe("Project.Access.Engine", () => {
 		const project = { ...fixtures.project.access.engine.state().project, access: fixtures.project.access() }
 		const user = { email: fixtures.user(), profile: fixtures.user.profile() }
 		engine = weekmeter.Project.Access.Engine.create(project, user)
+		expect(engine?.any()).toEqual(true)
 		expect(engine?.some("work")).toEqual(true)
 		expect(engine?.some("view")).toEqual(true)
 		expect(engine?.some("view", "work")).toEqual(true)
@@ -22,6 +23,7 @@ describe("Project.Access.Engine", () => {
 		expect(engine?.every("view", "work")).toEqual(true)
 		project.access = { rules: ["work if (user.country:SE)", "work if (user.team:Dev)"] }
 		engine = weekmeter.Project.Access.Engine.create(project, user)
+		expect(engine?.any()).toEqual(true)
 		expect(engine?.some("work")).toEqual(true)
 		expect(engine?.some("view")).toEqual(false)
 		expect(engine?.some("view", "work")).toEqual(true)
@@ -33,13 +35,20 @@ describe("Project.Access.Engine", () => {
 			{ name: "department", value: "Sales" },
 		]
 		engine = weekmeter.Project.Access.Engine.create(project, user)
+		expect(engine?.any()).toEqual(false)
 		expect(engine?.some("work")).toEqual(false)
 		expect(engine?.some("view")).toEqual(false)
 		expect(engine?.some("view", "work")).toEqual(false)
+		expect(engine?.some("view", "work", "admin")).toEqual(false)
 		expect(engine?.every("view")).toEqual(false)
 		expect(engine?.every("work")).toEqual(false)
 		expect(engine?.every("work", "view")).toEqual(false)
 		expect(engine?.every("view", "work")).toEqual(false)
+		project.access.rules = []
+		engine = weekmeter.Project.Access.Engine.create(project, user)
+		expect(engine?.any()).toEqual(true)
+		expect(engine?.some("view")).toEqual(true)
+		expect(engine?.every("view")).toEqual(true)
 	})
 	it("stringify", () => {
 		const project = { ...fixtures.project.access.engine.state().project, access: fixtures.project.access() }
