@@ -13,28 +13,9 @@ export interface Project extends Project.Creatable {
 	modified: Modified
 }
 export namespace Project {
-	export type Changeable = ProjectChangeable
-	export const Changeable = ProjectChangeable
-	export type Creatable = ProjectCreatable
-	export const Creatable = ProjectCreatable
-	export type Access = ProjectAccess
-	export const Access = ProjectAccess
-	export namespace Access {
-		export type Rule = ProjectAccess.Rule
-		export namespace Rule {
-			export type Type = ProjectAccess.Rule.Type
-			export namespace Type {
-				export type Work = ProjectAccess.Rule.Type.Work
-				export type View = ProjectAccess.Rule.Type.View
-				export type Admin = ProjectAccess.Rule.Type.Admin
-			}
-		}
-		export type Engine = ProjectAccess.Engine
-		export namespace Engine {
-			export type State = ProjectAccess.Engine.State
-			export type Rule = ProjectAccess.Engine.Rule
-		}
-	}
+	export import Changeable = ProjectChangeable
+	export import Creatable = ProjectCreatable
+	export import Access = ProjectAccess
 
 	export const type: isly.object.ExtendableType<Project> = Creatable.type.extend<Project>({
 		client: Client.type,
