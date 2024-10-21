@@ -9,7 +9,7 @@ export namespace Type {
 	export import Salary = TypeSalary
 	// export type Salary = TypeSalary
 	// export const Salary = TypeSalary
-	export const type = isly.union<>()
+	export const type = isly.union<Project | Salary>()
 	export const is = type.is
 	export const flaw = type.flaw
 }
