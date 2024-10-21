@@ -4,7 +4,7 @@ import { isly } from "isly"
 import { Type } from "../Type"
 
 export interface Salary {
-	type: Type.Salary
+	type: Type.Salary.Salary
 	email: userwidgets.Email
 	date: isoly.Date
 	adjustment?: isoly.TimeSpan

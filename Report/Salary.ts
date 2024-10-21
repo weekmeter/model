@@ -4,18 +4,8 @@ import { isly } from "isly"
 import { Time } from "../Time"
 import { Base } from "./Base"
 import { Salary as SalaryCreatable } from "./Creatable/Salary"
+import { Times } from "./Times"
 import { Type } from "./Type"
-
-type Times<T extends Time> = { total: isoly.TimeSpan; times: T[] }
-namespace Times {
-	export const type = Object.assign(createType(Time.type), { create: createType })
-	function createType<T extends Time>(type: isly.Type<T>) {
-		return isly.object<Times<T>>({
-			total: isly.fromIs("isoly.TimeSpan", isoly.TimeSpan.is),
-			times: isly.array(type),
-		})
-	}
-}
 
 export type Salary = { [type in Time.Type]: Times<Time & { type: type }> } & {
 	total: isoly.TimeSpan
