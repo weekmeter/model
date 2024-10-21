@@ -36,7 +36,7 @@ export namespace Project {
 		}
 	}
 
-	export const type: isly.object.ExtendableType<Project> = Creatable.type.extend<Project>({
+	export const type = Creatable.type.extend<Project>({
 		client: Client.type,
 		activities: isly.array(Activity.type),
 		access: ProjectAccess.type,

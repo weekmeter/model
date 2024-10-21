@@ -10,7 +10,7 @@ export interface Activity extends Activity.Creatable {
 export namespace Activity {
 	export type Creatable = ActivityCreatable
 	export const Creatable = ActivityCreatable
-	export const type: isly.object.ExtendableType<Activity> = Creatable.type.extend<Activity>({
+	export const type = Creatable.type.extend<Activity>({
 		modified: Modified.type,
 	})
 	export type Scoped = Record<Code, Record<Code, Record<Code, Record<Code, Activity>>>>
