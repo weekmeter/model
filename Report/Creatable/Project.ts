@@ -6,17 +6,16 @@ import { Type } from "../Type"
 export interface Project {
 	type: Type.Project
 	client: Client["code"]
-	date: { start: isoly.Date; end: isoly.Date } //dateRange: isoly.DateRange, instead?
+	dates: isoly.DateRange
+	adjustment?: isoly.TimeSpan //can this be negative?
 }
 
 export namespace Project {
 	export const type = isly.object<Project>({
 		type: Type.Project.type,
 		client: Code.type,
-		date: isly.object({
-			start: isly.fromIs("Isoly.Date", isoly.Date.is),
-			end: isly.fromIs("Isoly.Date", isoly.Date.is),
-		}),
+		dates: isly.fromIs("Isoly.DateRange", isoly.DateRange.is),
+		adjustment: isly.fromIs("Isoly.TimeSpan", isoly.TimeSpan.is).optional(),
 	})
 	export const is = type.is
 	export const flaw = type.flaw
