@@ -26,7 +26,8 @@ export class Engine {
 				!(result = !remainder.size) && index < this.rules.length;
 				index++
 			)
-				this.rules[index].is(this.state) && remainder.delete(this.rules[index].type)
+				if (this.rules[index].is(this.state))
+					remainder.delete(this.rules[index].type)
 		return result
 	}
 	stringify(): Access.Rule[] {
