@@ -1,7 +1,7 @@
 import { isly } from "isly"
 import { Code } from "../Code"
 import { Modified } from "../Modified"
-import { Scope } from "../Scope"
+import { Nest } from "../Nest"
 import { Creatable as ActivityCreatable } from "./Creatable"
 
 export interface Activity extends Activity.Creatable {
@@ -10,7 +10,7 @@ export interface Activity extends Activity.Creatable {
 export namespace Activity {
 	export type Creatable = ActivityCreatable
 	export const Creatable = ActivityCreatable
-	export const type: isly.object.ExtendableType<Activity> = Creatable.type.extend<Activity>({
+	export const type = Creatable.type.extend<Activity>({
 		modified: Modified.type,
 	})
 	export type Scoped = Record<Code, Record<Code, Record<Code, Record<Code, Activity>>>>
@@ -28,11 +28,11 @@ export namespace Activity {
 	export function scope(activities: Activity[]): Record<Code, Record<Code, Record<Code, Record<Code, Activity>>>> {
 		return activities.reduce(
 			(result, activity) =>
-				Scope.insert(result, activity, [activity.organization, activity.client, activity.project, activity.code]),
+				Nest.insert(result, activity, [activity.organization, activity.client, activity.project, activity.code]),
 			{}
 		)
 	}
 	export function fromScope(activities: ReturnType<typeof scope>): Activity[] {
-		return Scope.flat.constant<Activity>(activities, 4)
+		return Nest.flat.constant<Activity>(activities, 4)
 	}
 }

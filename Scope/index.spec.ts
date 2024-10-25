@@ -1,22 +1,15 @@
-import { Scope } from "./index"
+import { weekmeter } from "../index"
 
-describe("Scope", () => {
-	it("insert", () => {
-		const target = { foo: { bar: 1 } }
-		Scope.insert(target, 2, ["foo", "baz"])
-		expect(target).toEqual({ foo: { bar: 1, baz: 2 } })
+describe("weekmeter.Scope", () => {
+	it("is", () => {
+		expect(weekmeter.Scope.is("2024-01")).toEqual(true)
+		expect(weekmeter.Scope.is("2024-01-01")).toEqual(true)
+		expect(weekmeter.Scope.is("2024-W01")).toEqual(true)
+		expect(weekmeter.Scope.is("20240101")).toEqual(false)
 	})
-	it("flat", () => {
-		expect(Scope.flat.constant<number>({ foo: 1 }, 1)).toEqual([1])
-		expect(
-			Scope.flat<number>(
-				{ foo: 1, bar: { foo: 2, baz: 3 }, baz: { bar: { foo: 4 } } },
-				(value): value is number => typeof value == "number"
-			)
-		).toEqual([1, 2, 3, 4])
-		const constant = { foo: { bar: [1, 2, 3] } }
-		expect(Scope.flat.constant<number[]>(constant, 1)).toEqual([{ bar: [1, 2, 3] }])
-		expect(Scope.flat.constant<number[]>(constant, 2)).toEqual([[1, 2, 3]])
-		expect(Scope.flat.constant<number[]>(constant, 3)).toEqual([1, 2, 3])
+	it("includes", () => {
+		expect(weekmeter.Scope.includes("2024-W01", "2023-12-31")).toEqual(false)
+		expect(weekmeter.Scope.includes("2020-W01", "2019-12-31")).toEqual(true)
+		expect(weekmeter.Scope.includes("2024-02", "2024-02-29")).toEqual(true)
 	})
 })
