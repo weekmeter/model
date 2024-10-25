@@ -7,7 +7,7 @@ export type Day = Partial<Record<Day.Activity, Time>> // "client/project/activit
 export namespace Day {
 	export import Project = DayProject
 	export import Activity = DayActivity
-	export const type = isly.record<Day>(DayActivity.type, Time.type)
+	export const type = isly.record<Day>(DayActivity.type, Time.type.optional())
 	export const is = type.is
 	export const flaw = type.flaw
 	export function set(day: Day | undefined, time: Time): Day {
