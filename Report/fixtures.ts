@@ -17,7 +17,7 @@ export const report = {
 		client: "clientcode",
 		project: "projectcode",
 		dates: { start: "2024-01-01", end: "2024-12-31" },
-		times: [times.time.work()],
+		times: times.time.work(),
 		modified: modified.modified(),
 	}),
 }
