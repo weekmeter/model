@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { isly } from "isly"
 import { Project as TypeProject } from "./Project"
 import { Salary as TypeSalary } from "./Salary"
