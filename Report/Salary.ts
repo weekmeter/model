@@ -24,8 +24,7 @@ export type Salary = { [type in Time.Type]: Times<Time & { type: type }> } & {
 } & Base &
 	Omit<Salary.Creatable, "date">
 export namespace Salary {
-	export type Creatable = SalaryCreatable
-	export const Creatable = SalaryCreatable
+	export import Creatable = SalaryCreatable
 	export const type = Base.type.extend<Salary>({
 		type: Type.Salary.type,
 		email: userwidgets.Email.type,
