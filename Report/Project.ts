@@ -23,17 +23,14 @@ export namespace Project {
 		const rows: string = report.times
 			.map(time => {
 				const hours = isoly.TimeSpan.toHours(time.value)
-				const result =
-					hours != 0
-						? `${time.organization},${time.client},${time.project},${time.activity},${time.email},${
-								time.date
-						  },${isoly.TimeSpan.toHours(time.value).toFixed(2)}`
-						: ""
-				return result
+				return hours != 0
+					? `${time.organization},${time.client},${time.project},${time.activity},${time.email},${
+							time.date
+					  },${hours.toFixed(2)}`
+					: ""
 			})
 			.join(`\n`)
-
-		const file = new File(
+		return new File(
 			[header, rows],
 			`${report.dates.start}-${report.dates.end}_${report.client}_${report.project}.csv`,
 			{
@@ -41,6 +38,5 @@ export namespace Project {
 				lastModified: isoly.DateTime.epoch(report.modified.value),
 			}
 		)
-		return file
 	}
 }
