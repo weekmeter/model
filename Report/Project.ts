@@ -20,7 +20,7 @@ export namespace Project {
 
 	export function csv(report: Project): File {
 		const header = "organization,client,project,activity,email,date,time\n"
-		const rows: string = report.times //filter to remove time.value = 0
+		const rows: string = report.times
 			.map(time => {
 				const hours = isoly.TimeSpan.toHours(time.value)
 				const result =

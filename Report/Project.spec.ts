@@ -14,6 +14,6 @@ describe("Report.Project", () => {
 		const csv: File = weekmeter.Report.Project.csv(report)
 		expect(await csv.text()).toEqual(
 			"organization,client,project,activity,email,date,time\n------o1,------c1,------p1,------a1,jessie@rocket.com,2024-11-08,8.00"
-		) // I need to compare the file contents. Break out the csv into its own variable"
+		)
 	})
 })
