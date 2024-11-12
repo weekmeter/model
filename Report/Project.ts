@@ -34,7 +34,9 @@ export namespace Project {
 			.join("\n")
 		return new File(
 			[header, rows],
-			`${report.dates.start}-${report.dates.end}_${report.client}_${report.project}.csv`,
+			[`${report.dates.start}-${report.dates.end}`, report.client, report.project, report.activity]
+				.filter(property => property !== undefined)
+				.join("_") + ".csv",
 			{
 				type: "text/csv",
 				lastModified: isoly.DateTime.epoch(report.modified.value),

@@ -9,7 +9,7 @@ export interface Project {
 	client?: Code
 	project?: Code
 	activity?: Code
-	dates?: isoly.DateRange
+	dates: isoly.DateRange
 	email?: userwidgets.Email
 }
 export namespace Project {
@@ -18,7 +18,7 @@ export namespace Project {
 		client: Code.type.optional(),
 		project: Code.type.optional(),
 		activity: Code.type.optional(),
-		dates: isly.fromIs("isoly.DateRange", isoly.DateRange.is).optional(),
+		dates: isly.fromIs("isoly.DateRange", isoly.DateRange.is),
 		email: userwidgets.Email.type.optional(),
 	})
 	export const is = type.is

@@ -12,10 +12,18 @@ export type Invoice = {
 
 export namespace Invoice {
 	export import Creatable = InvoiceCreatable
-	export const type = isly.intersection<Invoice, Omit<Invoice, keyof Base | keyof Creatable>, Base, Creatable>(
-		isly.object<Omit<Invoice, keyof Base | keyof Creatable>>({ times: isly.array(Time.Work.type) }),
+	export const type = isly.intersection<
+		Invoice,
+		Omit<Invoice, keyof Base | keyof Creatable>,
+		Base,
+		Omit<Invoice.Creatable, "date">
+	>(
+		isly.object<Omit<Invoice, keyof Base | keyof Creatable>>({
+			times: isly.array(Time.Work.type),
+			dates: isly.fromIs("isoly.DateRange", isoly.DateRange.is),
+		}),
 		Base.type,
-		Creatable.type
+		Creatable.type.omit(["date"])
 	)
 	export const is = type.is
 	export const flaw = type.flaw
