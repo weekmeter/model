@@ -6,7 +6,7 @@ import { Type } from "../Type"
 
 export interface Project {
 	type: Type.Project
-	client?: Code
+	client: Code
 	project?: Code
 	activity?: Code
 	dates: isoly.DateRange
@@ -15,7 +15,7 @@ export interface Project {
 export namespace Project {
 	export const type = isly.object<Project>({
 		type: Type.Project.type,
-		client: Code.type.optional(),
+		client: Code.type,
 		project: Code.type.optional(),
 		activity: Code.type.optional(),
 		dates: isly.fromIs("isoly.DateRange", isoly.DateRange.is),
