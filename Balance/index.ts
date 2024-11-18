@@ -12,15 +12,17 @@ export interface Balance {
 export namespace Balance {
 	export const type = isly.object<Balance>({
 		value: isly.fromIs<isoly.TimeSpan>("isoly.TimeSpan", isoly.TimeSpan.is),
-		lock: isly.object<Required<Balance>["lock"]>({
-			salary: isly.fromIs<isoly.Date>("isoly.Date", isoly.Date.is).optional(),
-			projects: isly
-				.record<Required<Required<Balance>["lock"]>["projects"]>(
-					Day.Project.Work.type,
-					isly.fromIs<isoly.Date>("isoly.Date", isoly.Date.is).optional()
-				)
-				.optional(),
-		}),
+		lock: isly
+			.object<Required<Balance>["lock"]>({
+				salary: isly.fromIs<isoly.Date>("isoly.Date", isoly.Date.is).optional(),
+				projects: isly
+					.record<Required<Required<Balance>["lock"]>["projects"]>(
+						Day.Project.Work.type,
+						isly.fromIs<isoly.Date>("isoly.Date", isoly.Date.is).optional()
+					)
+					.optional(),
+			})
+			.optional(),
 	})
 	export const is = type.is
 	export const flaw = type.flaw
