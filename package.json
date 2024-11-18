@@ -65,7 +65,7 @@
 		"prettierx": "github:utily/prettierx#utily-20231004",
 		"rimraf": "^6.0.1",
 		"ts-jest": "^29.2.5",
-		"typedly": "^0.0.6",
+		"typedly": "^0.0.10",
 		"typescript": "5.5.4"
 	},
 	"dependencies": {

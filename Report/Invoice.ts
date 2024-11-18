@@ -2,23 +2,33 @@ import { isoly } from "isoly"
 import { isly } from "isly"
 import { Time } from "../Time"
 import { Base } from "./Base"
-import { Project as ProjectCreatable } from "./Creatable/Project"
+import { Invoice as InvoiceCreatable } from "./Creatable/Invoice"
 
-export type Project = {
+export type Invoice = {
 	times: Time.Work[]
+	dates: isoly.DateRange
 } & Base &
-	Project.Creatable
-export namespace Project {
-	export import Creatable = ProjectCreatable
-	export const type = isly.intersection<Project, Omit<Project, keyof Base | keyof Creatable>, Base, Creatable>(
-		isly.object<Omit<Project, keyof Base | keyof Creatable>>({ times: isly.array(Time.Work.type) }),
+	Omit<Invoice.Creatable, "date">
+
+export namespace Invoice {
+	export import Creatable = InvoiceCreatable
+	export const type = isly.intersection<
+		Invoice,
+		Omit<Invoice, keyof Base | keyof Creatable>,
+		Base,
+		Omit<Invoice.Creatable, "date">
+	>(
+		isly.object<Omit<Invoice, keyof Base | keyof Creatable>>({
+			times: isly.array(Time.Work.type),
+			dates: isly.fromIs("isoly.DateRange", isoly.DateRange.is),
+		}),
 		Base.type,
-		Creatable.type
+		Creatable.type.omit(["date"])
 	)
 	export const is = type.is
 	export const flaw = type.flaw
 
-	export function csv(report: Project): File {
+	export function csv(report: Invoice): File {
 		const header = "organization,client,project,activity,email,date,time\n"
 		const rows: string = report.times
 			.reduce<string[]>((result, time) => {
@@ -34,9 +44,7 @@ export namespace Project {
 			.join("\n")
 		return new File(
 			[header, rows],
-			[`${report.dates.start}-${report.dates.end}`, report.client, report.project, report.activity]
-				.filter(property => property !== undefined)
-				.join("_") + ".csv",
+			`${report.dates.start}-${report.dates.end}_${report.client}_${report.project}.csv`,
 			{
 				type: "text/csv",
 				lastModified: isoly.DateTime.epoch(report.modified.value),
