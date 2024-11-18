@@ -1,3 +1,4 @@
+import { isoly } from "isoly"
 import { File } from "fetch-blob/file"
 import { fixtures } from "../fixtures"
 import { weekmeter } from "../index"
@@ -13,7 +14,7 @@ describe("Report.Project", () => {
 		const report: weekmeter.Report.Project = fixtures.report.project()
 		const csv: File = weekmeter.Report.Project.csv(report)
 		expect(await csv.text()).toEqual(
-			"organization,client,project,activity,email,date,time\n------o1,------c1,------p1,------a1,jessie@rocket.com,2024-11-08,8.00"
+			`organization,client,project,activity,email,date,time\n------o1,------c1,------p1,------a1,jessie@rocket.com,${isoly.Date.now()},8.00`
 		)
 		expect(csv.name).toEqual("2024-01-01-2024-12-31_clientcode_projectcode.csv")
 		expect(csv.type).toEqual("text/csv")
